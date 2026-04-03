@@ -16,17 +16,19 @@
             android:layout_width="340dp"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:translationY="-15dp">
 
-            <TextView
+            <ImageView
+                android:id="@+id/ivAuthLogoLogin"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="100dp"
                 android:layout_gravity="center"
                 android:layout_marginBottom="40dp"
-                android:text="MOOZIK"
-                android:textColor="#FF5252"
-                android:textSize="28sp"
-                android:textStyle="bold" />
+                android:adjustViewBounds="true"
+                android:contentDescription="Moozik logo"
+                android:translationY="15dp"
+                android:src="@drawable/ic_piano_keys" />
 
             <EditText
                 android:layout_width="340dp"

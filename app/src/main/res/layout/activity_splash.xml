@@ -4,29 +4,14 @@
     android:layout_height="match_parent"
     android:background="@drawable/bg_gradient_splash">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <ImageView
+        android:id="@+id/ivSplashLogo"
+        android:layout_width="300dp"
+        android:layout_height="360dp"
         android:layout_gravity="center"
-        android:gravity="center"
-        android:orientation="vertical">
+        android:contentDescription="Splash logo"
+        android:scaleType="centerInside"
+        android:src="@drawable/ic_piano_keys" />
 
-        <ImageView
-            android:layout_width="100dp"
-            android:layout_height="120dp"
-            android:layout_marginBottom="16dp"
-            android:src="@drawable/ic_piano_keys" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-condensed"
-            android:letterSpacing="0.3"
-            android:text="MOOZIK"
-            android:textColor="#FF5252"
-            android:textSize="32sp"
-            android:textStyle="bold" />
-
-    </LinearLayout>
 
 </FrameLayout>
