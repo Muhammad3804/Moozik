@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="corner_radius_input">8dp</dimen>
+    <dimen name="corner_radius_card">12dp</dimen>
+    <dimen name="padding_screen">16dp</dimen>
+    <dimen name="bottom_nav_height">60dp</dimen>
+
+    <dimen name="catalog_card_width">168dp</dimen>
+    <dimen name="catalog_card_height">224dp</dimen>
+    <dimen name="catalog_image_box_size">150dp</dimen>
+    <dimen name="catalog_card_spacing">20dp</dimen>
+</resources>

@@ -1,0 +1,623 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <!-- GUITARS SECTION -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:paddingHorizontal="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="Shop Guitars."
+            android:textColor="#000000"
+            android:textSize="22sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginEnd="8dp"
+                android:src="@drawable/ic_filter"
+                app:tint="#1A0A0A" />
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_sort"
+                app:tint="#1A0A0A" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:orientation="horizontal">
+
+            <include
+                android:id="@+id/g1"
+                layout="@layout/item_guitar_1"
+                android:layout_width="@dimen/catalog_card_width"
+                android:layout_height="@dimen/catalog_card_height" />
+
+            <Space
+                android:layout_width="@dimen/catalog_card_spacing"
+                android:layout_height="1dp" />
+
+            <include
+                android:id="@+id/g2"
+                layout="@layout/item_guitar_2"
+                android:layout_width="@dimen/catalog_card_width"
+                android:layout_height="@dimen/catalog_card_height" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:orientation="horizontal">
+
+            <include
+                android:id="@+id/g3"
+                layout="@layout/item_guitar_3"
+                android:layout_width="@dimen/catalog_card_width"
+                android:layout_height="@dimen/catalog_card_height" />
+
+            <Space
+                android:layout_width="@dimen/catalog_card_spacing"
+                android:layout_height="1dp" />
+
+            <include
+                android:id="@+id/g4"
+                layout="@layout/item_guitar_4"
+                android:layout_width="@dimen/catalog_card_width"
+                android:layout_height="@dimen/catalog_card_height" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:orientation="horizontal">
+
+            <include
+                android:id="@+id/g5"
+                layout="@layout/item_guitar_5"
+                android:layout_width="@dimen/catalog_card_width"
+                android:layout_height="@dimen/catalog_card_height" />
+
+            <Space
+                android:layout_width="@dimen/catalog_card_spacing"
+                android:layout_height="1dp" />
+
+            <include
+                android:id="@+id/g6"
+                layout="@layout/item_guitar_6"
+                android:layout_width="@dimen/catalog_card_width"
+                android:layout_height="@dimen/catalog_card_height" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:orientation="horizontal">
+
+            <include
+                android:id="@+id/g7"
+                layout="@layout/item_guitar_7"
+                android:layout_width="@dimen/catalog_card_width"
+                android:layout_height="@dimen/catalog_card_height" />
+
+            <Space
+                android:layout_width="@dimen/catalog_card_spacing"
+                android:layout_height="1dp" />
+
+            <include
+                android:id="@+id/g8"
+                layout="@layout/item_guitar_8"
+                android:layout_width="@dimen/catalog_card_width"
+                android:layout_height="@dimen/catalog_card_height" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <include
+                android:id="@+id/g9"
+                layout="@layout/item_guitar_9"
+                android:layout_width="@dimen/catalog_card_width"
+                android:layout_height="@dimen/catalog_card_height" />
+
+            <Space
+                android:layout_width="@dimen/catalog_card_spacing"
+                android:layout_height="1dp" />
+
+            <include
+                android:id="@+id/g10"
+                layout="@layout/item_guitar_10"
+                android:layout_width="@dimen/catalog_card_width"
+                android:layout_height="@dimen/catalog_card_height" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- DRUMS SECTION -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="24dp"
+        android:text="Shop Drums."
+        android:textColor="#000000"
+        android:textSize="22sp"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:orientation="horizontal">
+
+            <include
+                android:id="@+id/d1"
+                layout="@layout/item_drum_1"
+                android:layout_width="@dimen/catalog_card_width"
+                android:layout_height="@dimen/catalog_card_height" />
+
+            <Space
+                android:layout_width="@dimen/catalog_card_spacing"
+                android:layout_height="1dp" />
+
+            <include
+                android:id="@+id/d2"
+                layout="@layout/item_drum_2"
+                android:layout_width="@dimen/catalog_card_width"
+                android:layout_height="@dimen/catalog_card_height" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:orientation="horizontal">
+
+            <include
+                android:id="@+id/d3"
+                layout="@layout/item_drum_3"
+                android:layout_width="@dimen/catalog_card_width"
+                android:layout_height="@dimen/catalog_card_height" />
+
+            <Space
+                android:layout_width="@dimen/catalog_card_spacing"
+                android:layout_height="1dp" />
+
+            <include
+                android:id="@+id/d4"
+                layout="@layout/item_drum_4"
+                android:layout_width="@dimen/catalog_card_width"
+                android:layout_height="@dimen/catalog_card_height" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:orientation="horizontal">
+
+            <include
+                android:id="@+id/d5"
+                layout="@layout/item_drum_5"
+                android:layout_width="@dimen/catalog_card_width"
+                android:layout_height="@dimen/catalog_card_height" />
+
+            <Space
+                android:layout_width="@dimen/catalog_card_spacing"
+                android:layout_height="1dp" />
+
+            <include
+                android:id="@+id/d6"
+                layout="@layout/item_drum_6"
+                android:layout_width="@dimen/catalog_card_width"
+                android:layout_height="@dimen/catalog_card_height" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <include
+                android:id="@+id/d7"
+                layout="@layout/item_drum_7"
+                android:layout_width="@dimen/catalog_card_width"
+                android:layout_height="@dimen/catalog_card_height" />
+
+            <Space
+                android:layout_width="@dimen/catalog_card_spacing"
+                android:layout_height="1dp" />
+
+            <include
+                android:id="@+id/d8"
+                layout="@layout/item_drum_8"
+                android:layout_width="@dimen/catalog_card_width"
+                android:layout_height="@dimen/catalog_card_height" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- PIANOS SECTION -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="24dp"
+        android:text="Shop Pianos."
+        android:textColor="#000000"
+        android:textSize="22sp"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:orientation="horizontal">
+
+            <include
+                android:id="@+id/p1"
+                layout="@layout/item_product_piano"
+                android:layout_width="@dimen/catalog_card_width"
+                android:layout_height="@dimen/catalog_card_height" />
+
+            <Space
+                android:layout_width="@dimen/catalog_card_spacing"
+                android:layout_height="1dp" />
+
+            <include
+                android:id="@+id/p2"
+                layout="@layout/item_product_piano"
+                android:layout_width="@dimen/catalog_card_width"
+                android:layout_height="@dimen/catalog_card_height" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:orientation="horizontal">
+
+            <include
+                android:id="@+id/p3"
+                layout="@layout/item_product_piano"
+                android:layout_width="@dimen/catalog_card_width"
+                android:layout_height="@dimen/catalog_card_height" />
+
+            <Space
+                android:layout_width="@dimen/catalog_card_spacing"
+                android:layout_height="1dp" />
+
+            <include
+                android:id="@+id/p4"
+                layout="@layout/item_product_piano"
+                android:layout_width="@dimen/catalog_card_width"
+                android:layout_height="@dimen/catalog_card_height" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <include
+                android:id="@+id/p5"
+                layout="@layout/item_product_piano"
+                android:layout_width="@dimen/catalog_card_width"
+                android:layout_height="@dimen/catalog_card_height" />
+
+            <Space
+                android:layout_width="@dimen/catalog_card_spacing"
+                android:layout_height="1dp" />
+
+            <include
+                android:id="@+id/p6"
+                layout="@layout/item_product_piano"
+                android:layout_width="@dimen/catalog_card_width"
+                android:layout_height="@dimen/catalog_card_height" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- BASS SECTION -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="24dp"
+        android:text="Shop Bass."
+        android:textColor="#000000"
+        android:textSize="22sp"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:orientation="horizontal">
+
+            <include
+                android:id="@+id/b1"
+                layout="@layout/item_product_bass"
+                android:layout_width="@dimen/catalog_card_width"
+                android:layout_height="@dimen/catalog_card_height" />
+
+            <Space
+                android:layout_width="@dimen/catalog_card_spacing"
+                android:layout_height="1dp" />
+
+            <include
+                android:id="@+id/b2"
+                layout="@layout/item_product_bass"
+                android:layout_width="@dimen/catalog_card_width"
+                android:layout_height="@dimen/catalog_card_height" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:orientation="horizontal">
+
+            <include
+                android:id="@+id/b3"
+                layout="@layout/item_product_bass"
+                android:layout_width="@dimen/catalog_card_width"
+                android:layout_height="@dimen/catalog_card_height" />
+
+            <Space
+                android:layout_width="@dimen/catalog_card_spacing"
+                android:layout_height="1dp" />
+
+            <include
+                android:id="@+id/b4"
+                layout="@layout/item_product_bass"
+                android:layout_width="@dimen/catalog_card_width"
+                android:layout_height="@dimen/catalog_card_height" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <include
+                android:id="@+id/b5"
+                layout="@layout/item_product_bass"
+                android:layout_width="@dimen/catalog_card_width"
+                android:layout_height="@dimen/catalog_card_height" />
+
+            <Space
+                android:layout_width="@dimen/catalog_card_spacing"
+                android:layout_height="1dp" />
+
+            <include
+                android:id="@+id/b6"
+                layout="@layout/item_product_bass"
+                android:layout_width="@dimen/catalog_card_width"
+                android:layout_height="@dimen/catalog_card_height" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- VIOLIN SECTION -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="24dp"
+        android:text="Shop Violins."
+        android:textColor="#000000"
+        android:textSize="22sp"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:orientation="horizontal">
+
+            <include
+                android:id="@+id/v1"
+                layout="@layout/item_product_violin"
+                android:layout_width="@dimen/catalog_card_width"
+                android:layout_height="@dimen/catalog_card_height" />
+
+            <Space
+                android:layout_width="@dimen/catalog_card_spacing"
+                android:layout_height="1dp" />
+
+            <include
+                android:id="@+id/v2"
+                layout="@layout/item_product_violin"
+                android:layout_width="@dimen/catalog_card_width"
+                android:layout_height="@dimen/catalog_card_height" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:orientation="horizontal">
+
+            <include
+                android:id="@+id/v3"
+                layout="@layout/item_product_violin"
+                android:layout_width="@dimen/catalog_card_width"
+                android:layout_height="@dimen/catalog_card_height" />
+
+            <Space
+                android:layout_width="@dimen/catalog_card_spacing"
+                android:layout_height="1dp" />
+
+            <include
+                android:id="@+id/v4"
+                layout="@layout/item_product_violin"
+                android:layout_width="@dimen/catalog_card_width"
+                android:layout_height="@dimen/catalog_card_height" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <include
+                android:id="@+id/v5"
+                layout="@layout/item_product_violin"
+                android:layout_width="@dimen/catalog_card_width"
+                android:layout_height="@dimen/catalog_card_height" />
+
+            <Space
+                android:layout_width="@dimen/catalog_card_spacing"
+                android:layout_height="1dp" />
+
+            <include
+                android:id="@+id/v6"
+                layout="@layout/item_product_violin"
+                android:layout_width="@dimen/catalog_card_width"
+                android:layout_height="@dimen/catalog_card_height" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- OTHER SECTION -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="24dp"
+        android:text="Other Instruments."
+        android:textColor="#000000"
+        android:textSize="22sp"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:orientation="horizontal">
+
+            <include
+                android:id="@+id/o1"
+                layout="@layout/item_product_other"
+                android:layout_width="@dimen/catalog_card_width"
+                android:layout_height="@dimen/catalog_card_height" />
+
+            <Space
+                android:layout_width="@dimen/catalog_card_spacing"
+                android:layout_height="1dp" />
+
+            <include
+                android:id="@+id/o2"
+                layout="@layout/item_product_other"
+                android:layout_width="@dimen/catalog_card_width"
+                android:layout_height="@dimen/catalog_card_height" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:orientation="horizontal">
+
+            <include
+                android:id="@+id/o3"
+                layout="@layout/item_product_other"
+                android:layout_width="@dimen/catalog_card_width"
+                android:layout_height="@dimen/catalog_card_height" />
+
+            <Space
+                android:layout_width="@dimen/catalog_card_spacing"
+                android:layout_height="1dp" />
+
+            <include
+                android:id="@+id/o4"
+                layout="@layout/item_product_other"
+                android:layout_width="@dimen/catalog_card_width"
+                android:layout_height="@dimen/catalog_card_height" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <include
+                android:id="@+id/o5"
+                layout="@layout/item_product_other"
+                android:layout_width="@dimen/catalog_card_width"
+                android:layout_height="@dimen/catalog_card_height" />
+
+            <Space
+                android:layout_width="@dimen/catalog_card_spacing"
+                android:layout_height="1dp" />
+
+            <include
+                android:id="@+id/o6"
+                layout="@layout/item_product_other"
+                android:layout_width="@dimen/catalog_card_width"
+                android:layout_height="@dimen/catalog_card_height" />
+        </LinearLayout>
+    </LinearLayout>
+</merge>
+

@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@drawable/bg_toolbar"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Connect with Teacher"
+            android:textColor="#FF5252"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+    </androidx.appcompat.widget.Toolbar>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="24dp">
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="8dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_margin="8dp" android:background="@drawable/bg_chip" android:paddingHorizontal="16dp" android:paddingVertical="8dp" android:text="Guitar" android:textColor="#FFFFFF" />
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_margin="8dp" android:background="@drawable/bg_chip" android:paddingHorizontal="16dp" android:paddingVertical="8dp" android:text="Piano" android:textColor="#FFFFFF" />
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_margin="8dp" android:background="@drawable/bg_chip" android:paddingHorizontal="16dp" android:paddingVertical="8dp" android:text="Drums" android:textColor="#FFFFFF" />
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_margin="8dp" android:background="@drawable/bg_chip" android:paddingHorizontal="16dp" android:paddingVertical="8dp" android:text="Violin" android:textColor="#FFFFFF" />
+                </LinearLayout>
+            </HorizontalScrollView>
+
+            <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:columnCount="2"
+                android:padding="8dp">
+
+                <!-- Teacher 1 -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="8dp"
+                    android:background="@drawable/bg_card"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+                    <ImageView android:layout_width="60dp" android:layout_height="60dp" android:src="@drawable/ic_avatar" />
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:text="Usman Ali" android:textStyle="bold" />
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Guitar" android:textColor="#FF4444" />
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="★ 4.9" android:textColor="#FF4444" />
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="PKR.3,000/hr" android:textSize="12sp" />
+                    <Button android:layout_width="wrap_content" android:layout_height="36dp" android:layout_marginTop="8dp" android:background="@drawable/bg_button_primary" android:text="Book" android:textAllCaps="false" android:textColor="#FFFFFF" android:textSize="12sp" />
+                </LinearLayout>
+
+                <!-- Teacher 2 -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="8dp"
+                    android:background="@drawable/bg_card"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+                    <ImageView android:layout_width="60dp" android:layout_height="60dp" android:src="@drawable/ic_avatar" />
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:text="Sara Khan" android:textStyle="bold" />
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Piano" android:textColor="#FF4444" />
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="★ 4.8" android:textColor="#FF4444" />
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="PKR.2,500/hr" android:textSize="12sp" />
+                    <Button android:layout_width="wrap_content" android:layout_height="36dp" android:layout_marginTop="8dp" android:background="@drawable/bg_button_primary" android:text="Book" android:textAllCaps="false" android:textColor="#FFFFFF" android:textSize="12sp" />
+                </LinearLayout>
+
+                <!-- Teacher 3 (Wide) -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_columnSpan="2"
+                    android:layout_margin="8dp"
+                    android:background="@drawable/bg_card"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:padding="16dp">
+                    <ImageView android:layout_width="60dp" android:layout_height="60dp" android:src="@drawable/ic_avatar" />
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Bilal Ahmed" android:textStyle="bold" />
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Drums" android:textColor="#FF4444" />
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="★ 4.7" android:textColor="#FF4444" />
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="PKR.2,000/hr" android:textSize="12sp" />
+                    </LinearLayout>
+                    <Button android:layout_width="wrap_content" android:layout_height="36dp" android:background="@drawable/bg_button_primary" android:text="Book" android:textAllCaps="false" android:textColor="#FFFFFF" android:textSize="12sp" />
+                </LinearLayout>
+
+                <!-- Teacher 4 -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="8dp"
+                    android:background="@drawable/bg_card"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+                    <ImageView android:layout_width="60dp" android:layout_height="60dp" android:src="@drawable/ic_avatar" />
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:text="Hina Malik" android:textStyle="bold" />
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Violin" android:textColor="#FF4444" />
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="★ 5.0" android:textColor="#FF4444" />
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="PKR.3,500/hr" android:textSize="12sp" />
+                    <Button android:layout_width="wrap_content" android:layout_height="36dp" android:layout_marginTop="8dp" android:background="@drawable/bg_button_primary" android:text="Book" android:textAllCaps="false" android:textColor="#FFFFFF" android:textSize="12sp" />
+                </LinearLayout>
+            </GridLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:text="Available Time Slots"
+                android:textColor="#1A0A0A"
+                android:textStyle="bold" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp">
+
+                <androidx.constraintlayout.helper.widget.Flow
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:constraint_referenced_ids="slot1,slot2,slot3,slot4,slot5,slot6"
+                    app:flow_horizontalGap="8dp"
+                    app:flow_verticalGap="8dp"
+                    app:flow_wrapMode="chain"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView android:id="@+id/slot1" android:layout_width="wrap_content" android:layout_height="wrap_content" android:background="@drawable/bg_chip" android:paddingHorizontal="12dp" android:paddingVertical="8dp" android:text="Mon 9AM" android:textColor="#FFFFFF" />
+                <TextView android:id="@+id/slot2" android:layout_width="wrap_content" android:layout_height="wrap_content" android:background="@drawable/bg_chip" android:paddingHorizontal="12dp" android:paddingVertical="8dp" android:text="Tue 2PM" android:textColor="#FFFFFF" />
+                <TextView android:id="@+id/slot3" android:layout_width="wrap_content" android:layout_height="wrap_content" android:background="@drawable/bg_chip" android:paddingHorizontal="12dp" android:paddingVertical="8dp" android:text="Wed 11AM" android:textColor="#FFFFFF" />
+                <TextView android:id="@+id/slot4" android:layout_width="wrap_content" android:layout_height="wrap_content" android:background="@drawable/bg_chip" android:paddingHorizontal="12dp" android:paddingVertical="8dp" android:text="Thu 4PM" android:textColor="#FFFFFF" />
+                <TextView android:id="@+id/slot5" android:layout_width="wrap_content" android:layout_height="wrap_content" android:background="@drawable/bg_chip" android:paddingHorizontal="12dp" android:paddingVertical="8dp" android:text="Fri 10AM" android:textColor="#FFFFFF" />
+                <TextView android:id="@+id/slot6" android:layout_width="wrap_content" android:layout_height="wrap_content" android:background="@drawable/bg_chip" android:paddingHorizontal="12dp" android:paddingVertical="8dp" android:text="Sat 3PM" android:textColor="#FFFFFF" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

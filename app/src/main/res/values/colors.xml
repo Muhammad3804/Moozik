@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorBackground">#1A0A0A</color>
+    <color name="colorSurface">#2D0A0A</color>
+    <color name="colorPrimary">#FF4444</color>
+    <color name="colorAccent">#FF5252</color>
+    <color name="colorInputBg">#3D1010</color>
+    <color name="colorToolbar">#1C0808</color>
+    <color name="colorTextPrimary">#FFFFFF</color>
+    <color name="colorTextAccent">#FF5252</color>
+    <color name="colorStarRating">#FF4444</color>
+    <color name="colorBorder">#5C1A1A</color>
+
+    <color name="colorSearchBg">#8B0606</color>
+    <color name="colorSearchStroke">#6E1111</color>
+    <color name="colorSearchHint">#B35A5A</color>
+    <color name="colorSearchText">#FFDCDC</color>
+</resources>

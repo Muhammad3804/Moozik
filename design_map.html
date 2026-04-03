@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+    body { font-family: sans-serif; margin: 40px; color: #1A0A0A; }
+    h1 { color: #2D0A0A; text-align: center; }
+    .header-info { text-align: center; margin-bottom: 30px; font-weight: bold; }
+    table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+    th { background-color: #2D0A0A; color: #FFFFFF; padding: 15px; text-align: left; }
+    td { padding: 12px; border-bottom: 1px solid #EEEEEE; font-size: 14px; }
+    tr:nth-child(even) { background-color: #FFF5F5; }
+    tr:nth-child(odd) { background-color: #FFFFFF; }
+    .req-id { color: #FF4444; font-weight: bold; }
+    .filename { font-family: monospace; color: #3D0A0A; }
+</style>
+</head>
+<body>
+
+    <h1>Layout Mapping Document</h1>
+    <div class="header-info">Roll No: [Your Roll No] | Project: Moozik — Music Instrument Store & Learning App</div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Requirement ID</th>
+                <th>Screen Filename</th>
+                <th>Function in My App</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="req-id">L1 (CoordinatorLayout)</td>
+                <td class="filename">activity_main.xml</td>
+                <td>Main store dashboard. Toolbar with MOOZIK logo collapses when user scrolls the product grid.</td>
+            </tr>
+            <tr>
+                <td class="req-id">L2 (ConstraintLayout)</td>
+                <td class="filename">activity_lessons.xml</td>
+                <td>Lesson progress header card. Guidelines and Barrier prevent "Continue Learning" text from overlapping the piano icon at any text size. Chain distributes progress bar evenly.</td>
+            </tr>
+            <tr>
+                <td class="req-id">L3 (LinearLayout Weighted)</td>
+                <td class="filename">activity_main.xml</td>
+                <td>Bottom navigation bar. 4 nav items (Store, Lessons, Cart, Profile) each have layout_weight="1" ensuring equal width on all screen sizes.</td>
+            </tr>
+            <tr>
+                <td class="req-id">L4 (RelativeLayout)</td>
+                <td class="filename">activity_cart.xml</td>
+                <td>Cart item rows. Product image on left, name and price positioned toRightOf image, Remove button anchored to alignParentEnd.</td>
+            </tr>
+            <tr>
+                <td class="req-id">L5 (FrameLayout Badge)</td>
+                <td class="filename">activity_main.xml</td>
+                <td>Notification bell in toolbar header. Red circular badge with count "2" stacked on top of bell icon using layout_gravity="top|end".</td>
+            </tr>
+            <tr>
+                <td class="req-id">L6 (GridLayout span)</td>
+                <td class="filename">activity_main.xml</td>
+                <td>Guitar product grid. "Synyster Schecter" featured card spans both columns (layout_columnSpan="2") as a wide hero product card.</td>
+            </tr>
+            <tr>
+                <td class="req-id">L7 (TableLayout)</td>
+                <td class="filename">activity_lessons.xml</td>
+                <td>Weekly lesson schedule table. stretchColumns="1,2" makes Topic and Duration columns expand to fill screen width.</td>
+            </tr>
+            <tr>
+                <td class="req-id">L8 (HorizontalScrollView)</td>
+                <td class="filename">activity_main.xml</td>
+                <td>Drums product carousel. Scrolls independently left-to-right while the main vertical scroll continues normally.</td>
+            </tr>
+            <tr>
+                <td class="req-id">L9 (RadioGroup)</td>
+                <td class="filename">activity_lessons.xml</td>
+                <td>Instrument filter. Only one instrument category (All/Guitar/Piano/Drums) can be selected at a time.</td>
+            </tr>
+            <tr>
+                <td class="req-id">L10 (ConstraintLayout Flow)</td>
+                <td class="filename">activity_main.xml</td>
+                <td>Category tag cloud. Flow widget wraps instrument category chips (Guitars, Drums, Piano, etc.) to next line automatically.</td>
+            </tr>
+        </tbody>
+    </table>
+
+</body>
+</html>
