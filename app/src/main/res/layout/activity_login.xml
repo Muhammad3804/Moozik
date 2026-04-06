@@ -13,11 +13,11 @@
         android:padding="24dp">
 
         <LinearLayout
-            android:layout_width="340dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="32dp"
             android:gravity="center_horizontal"
-            android:orientation="vertical"
-            android:translationY="-15dp">
+            android:orientation="vertical">
 
             <ImageView
                 android:id="@+id/ivAuthLogoLogin"
@@ -27,11 +27,10 @@
                 android:layout_marginBottom="40dp"
                 android:adjustViewBounds="true"
                 android:contentDescription="Moozik logo"
-                android:translationY="15dp"
                 android:src="@drawable/ic_piano_keys" />
 
             <EditText
-                android:layout_width="340dp"
+                android:layout_width="match_parent"
                 android:layout_height="35dp"
                 android:layout_marginBottom="12dp"
                 android:background="@drawable/bg_input_field"
@@ -49,7 +48,7 @@
                 android:textSize="14sp" />
 
             <EditText
-                android:layout_width="340dp"
+                android:layout_width="match_parent"
                 android:layout_height="35dp"
                 android:layout_marginBottom="8dp"
                 android:background="@drawable/bg_input_field"
@@ -95,7 +94,7 @@
 
             <Button
                 android:id="@+id/btnLogin"
-                android:layout_width="340dp"
+                android:layout_width="match_parent"
                 android:layout_height="35dp"
                 android:layout_marginBottom="24dp"
                 android:background="@drawable/bg_button_auth"

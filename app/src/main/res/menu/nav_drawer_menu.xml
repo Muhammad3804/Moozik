@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_profile"
+            android:icon="@drawable/ic_profile"
+            android:title="My Profile" />
+
+        <item
+            android:id="@+id/nav_admin_panel"
+            android:icon="@drawable/ic_admin"
+            android:title="Admin Panel"
+            android:visible="false" />
+    </group>
+
+    <item android:title="Categories">
+        <menu>
+            <item
+                android:id="@+id/nav_guitars"
+                android:icon="@drawable/ic_guitar_placeholder"
+                android:title="Guitars" />
+            <item
+                android:id="@+id/nav_drums"
+                android:icon="@drawable/ic_drum_placeholder"
+                android:title="Drums" />
+            <item
+                android:id="@+id/nav_pianos"
+                android:icon="@drawable/ic_piano_placeholder"
+                android:title="Pianos" />
+            <item
+                android:id="@+id/nav_bass"
+                android:icon="@drawable/ic_guitar_placeholder"
+                android:title="Bass" />
+            <item
+                android:id="@+id/nav_violins"
+                android:icon="@drawable/ic_violin_placeholder"
+                android:title="Violins" />
+            <item
+                android:id="@+id/nav_other"
+                android:icon="@drawable/ic_guitar_placeholder"
+                android:title="Other Instruments" />
+        </menu>
+    </item>
+
+    <item android:title="Account">
+        <menu>
+            <item
+                android:id="@+id/nav_logout"
+                android:icon="@drawable/ic_logout"
+                android:title="Logout" />
+        </menu>
+    </item>
+</menu>

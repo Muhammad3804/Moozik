@@ -2,6 +2,8 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.compose.compiler)
+    // TODO: Uncomment when Firebase is ready
+    // alias(libs.plugins.google.services)
 }
 
 android {
@@ -46,14 +48,29 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.constraintlayout)
-    
+    implementation(libs.androidx.viewpager2)
+
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
     implementation(libs.androidx.activity.compose)
-    
+
+    // TODO: Uncomment when Firebase is ready
+    // Firebase
+    // implementation(platform(libs.firebase.bom))
+    // implementation(libs.firebase.auth.ktx)
+    // implementation(libs.firebase.firestore.ktx)
+    // implementation(libs.firebase.storage.ktx)
+
+    // Coroutines
+    implementation(libs.kotlinx.coroutines.android)
+    // implementation(libs.kotlinx.coroutines.play.services)
+
+    // Image Loading
+    implementation(libs.glide)
+
     debugImplementation(libs.androidx.ui.tooling)
 
     testImplementation(libs.junit)
