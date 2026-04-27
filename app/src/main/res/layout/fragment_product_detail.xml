@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#FFFFFF">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/productToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_header_rounded_small"
+        android:minHeight="56dp"
+        android:paddingStart="12dp"
+        android:paddingTop="16dp"
+        android:paddingEnd="12dp"
+        app:titleTextColor="#FF5252" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- Image area -->
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="220dp"
+                android:background="@drawable/bg_card"
+                android:padding="12dp">
+
+                <!-- use existing drawable placeholder which has rounded corners -->
+                <ImageView
+                    android:id="@+id/imageProductLarge"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:adjustViewBounds="true"
+                    android:scaleType="centerInside"
+                    android:background="@drawable/bg_image_placeholder"
+                    android:src="@drawable/ic_image" />
+            </FrameLayout>
+
+            <!-- Title, rating, price -->
+            <TextView
+                android:id="@+id/textProductTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="#1A1A1A" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="6dp">
+
+                <TextView
+                    android:id="@+id/textProductRating"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:textColor="#FF4444"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/textProductPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#1A1A1A"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <!-- Description -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="Description"
+                android:textColor="#1A1A1A"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textProductDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:textColor="#333333" />
+
+            <!-- Reviews (static sample) -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Reviews"
+                android:textColor="#1A1A1A"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="8dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Ali — 5.0\nGreat instrument, sounds amazing and build quality is solid."
+                    android:textColor="#1A1A1A"
+                    android:padding="8dp"
+                    android:background="#F8F8F8" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="Sara — 4.5\nComfortable to play, recommended for intermediate players."
+                    android:textColor="#1A1A1A"
+                    android:padding="8dp"
+                    android:background="#F8F8F8" />
+            </LinearLayout>
+
+            <!-- Similar products (simple horizontal scroll of small cards referencing main screen) -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Similar Products"
+                android:textColor="#1A1A1A"
+                android:textStyle="bold" />
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:scrollbars="none">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <!-- We'll use simple placeholders; products already exist on main screen -->
+                    <LinearLayout
+                        android:layout_width="120dp"
+                        android:layout_height="160dp"
+                        android:orientation="vertical"
+                        android:background="#FFFFFF"
+                        android:padding="8dp"
+                        android:layout_marginEnd="12dp"
+                        android:backgroundTint="#FFFFFF">
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="80dp"
+                            android:background="#D9D9D9" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:text="Sample" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="120dp"
+                        android:layout_height="160dp"
+                        android:orientation="vertical"
+                        android:background="#FFFFFF"
+                        android:padding="8dp"
+                        android:layout_marginEnd="12dp">
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="80dp"
+                            android:background="#D9D9D9" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:text="Sample" />
+                    </LinearLayout>
+                </LinearLayout>
+            </HorizontalScrollView>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- Footer with chat icon + two equal buttons -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:orientation="horizontal"
+        android:padding="8dp"
+        android:background="@drawable/bg_footer_rounded">
+
+        <ImageView
+            android:id="@+id/btnChatSeller"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="center_vertical"
+            android:padding="8dp"
+            android:src="@drawable/ic_notification" />
+
+        <Space android:layout_width="8dp" android:layout_height="1dp" />
+
+        <Button
+            android:id="@+id/btnBuyNow"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/bg_button_primary"
+            android:text="Buy Now"
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF" />
+
+        <Button
+            android:id="@+id/btnAddCart"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/bg_button_auth"
+            android:text="Add to Cart"
+            android:textAllCaps="false"
+            android:textColor="#000000" />
+
+    </LinearLayout>
+
+</LinearLayout>
+
+

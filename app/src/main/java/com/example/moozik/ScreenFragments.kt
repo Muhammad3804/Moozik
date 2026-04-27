@@ -108,6 +108,30 @@ class StoreFragment : BaseScreenFragment(R.layout.activity_main) {
             onCart = { navigateTo(CartFragment()) },
             onProfile = { navigateTo(ProfileFragment()) }
         )
+
+        // Setup RecyclerView product grid
+        try {
+            val recycler = view.findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.recyclerCatalog)
+            val products = com.example.moozik.data.ProductRepository.allProducts()
+            val adapter = com.example.moozik.adapters.ProductAdapter(products) { product ->
+                navigateTo(com.example.moozik.ProductFragments.ProductDetailFragment.newInstance(product), addToBackStack = true)
+            }
+            recycler.adapter = adapter
+            val gm = androidx.recyclerview.widget.GridLayoutManager(requireContext(), 2)
+            recycler.layoutManager = gm
+            // spacing decorator
+            val spacing = resources.getDimensionPixelSize(R.dimen.catalog_card_spacing)
+            recycler.addItemDecoration(object : androidx.recyclerview.widget.RecyclerView.ItemDecoration() {
+                override fun getItemOffsets(outRect: android.graphics.Rect, view: View, parent: androidx.recyclerview.widget.RecyclerView, state: androidx.recyclerview.widget.RecyclerView.State) {
+                    outRect.left = spacing / 2
+                    outRect.right = spacing / 2
+                    outRect.top = spacing / 2
+                    outRect.bottom = spacing / 2
+                }
+            })
+        } catch (e: Exception) {
+            // ignore
+        }
     }
 
     companion object {

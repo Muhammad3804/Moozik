@@ -40,127 +40,15 @@
         </LinearLayout>
     </RelativeLayout>
 
-    <LinearLayout
+    <!-- Replaced static includes with a RecyclerView-powered product grid -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerCatalog"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:gravity="center"
-        android:orientation="vertical">
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            android:orientation="horizontal">
-
-            <include
-                android:id="@+id/g1"
-                layout="@layout/item_guitar_1"
-                android:layout_width="@dimen/catalog_card_width"
-                android:layout_height="@dimen/catalog_card_height" />
-
-            <Space
-                android:layout_width="@dimen/catalog_card_spacing"
-                android:layout_height="1dp" />
-
-            <include
-                android:id="@+id/g2"
-                layout="@layout/item_guitar_2"
-                android:layout_width="@dimen/catalog_card_width"
-                android:layout_height="@dimen/catalog_card_height" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            android:orientation="horizontal">
-
-            <include
-                android:id="@+id/g3"
-                layout="@layout/item_guitar_3"
-                android:layout_width="@dimen/catalog_card_width"
-                android:layout_height="@dimen/catalog_card_height" />
-
-            <Space
-                android:layout_width="@dimen/catalog_card_spacing"
-                android:layout_height="1dp" />
-
-            <include
-                android:id="@+id/g4"
-                layout="@layout/item_guitar_4"
-                android:layout_width="@dimen/catalog_card_width"
-                android:layout_height="@dimen/catalog_card_height" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            android:orientation="horizontal">
-
-            <include
-                android:id="@+id/g5"
-                layout="@layout/item_guitar_5"
-                android:layout_width="@dimen/catalog_card_width"
-                android:layout_height="@dimen/catalog_card_height" />
-
-            <Space
-                android:layout_width="@dimen/catalog_card_spacing"
-                android:layout_height="1dp" />
-
-            <include
-                android:id="@+id/g6"
-                layout="@layout/item_guitar_6"
-                android:layout_width="@dimen/catalog_card_width"
-                android:layout_height="@dimen/catalog_card_height" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            android:orientation="horizontal">
-
-            <include
-                android:id="@+id/g7"
-                layout="@layout/item_guitar_7"
-                android:layout_width="@dimen/catalog_card_width"
-                android:layout_height="@dimen/catalog_card_height" />
-
-            <Space
-                android:layout_width="@dimen/catalog_card_spacing"
-                android:layout_height="1dp" />
-
-            <include
-                android:id="@+id/g8"
-                layout="@layout/item_guitar_8"
-                android:layout_width="@dimen/catalog_card_width"
-                android:layout_height="@dimen/catalog_card_height" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <include
-                android:id="@+id/g9"
-                layout="@layout/item_guitar_9"
-                android:layout_width="@dimen/catalog_card_width"
-                android:layout_height="@dimen/catalog_card_height" />
-
-            <Space
-                android:layout_width="@dimen/catalog_card_spacing"
-                android:layout_height="1dp" />
-
-            <include
-                android:id="@+id/g10"
-                layout="@layout/item_guitar_10"
-                android:layout_width="@dimen/catalog_card_width"
-                android:layout_height="@dimen/catalog_card_height" />
-        </LinearLayout>
-    </LinearLayout>
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:clipToPadding="false" />
 
     <!-- DRUMS SECTION -->
     <TextView
