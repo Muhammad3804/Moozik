@@ -112,17 +112,22 @@ class StoreFragment : BaseScreenFragment(R.layout.activity_main) {
             onProfile = { navigateTo(ProfileFragment()) }
         )
 
-        // Setup RecyclerView product grid
-        try {
-            val recycler = view.findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.recyclerCatalog)
-            val products = com.example.moozik.data.ProductRepository.allProducts()
-            val adapter = com.example.moozik.adapters.ProductAdapter(products) { product ->
-                navigateTo(com.example.moozik.ProductFragments.ProductDetailFragment.newInstance(product), addToBackStack = true)
-            }
-            recycler.adapter = adapter
-            val gm = androidx.recyclerview.widget.GridLayoutManager(requireContext(), 2)
-            recycler.layoutManager = gm
-            // spacing decorator
+        setupProductSection(view, R.id.recyclerGuitars, "Guitar")
+        setupProductSection(view, R.id.recyclerDrums, "Drums")
+        setupProductSection(view, R.id.recyclerPianos, "Piano")
+        setupProductSection(view, R.id.recyclerBass, "Bass")
+        setupProductSection(view, R.id.recyclerOthers, "Other")
+    }
+
+    private fun setupProductSection(root: View, recyclerId: Int, category: String) {
+        val recycler = root.findViewById<RecyclerView>(recyclerId)
+        val products = com.example.moozik.data.ProductRepository.allProducts().filter { it.category == category }
+        recycler.layoutManager = androidx.recyclerview.widget.GridLayoutManager(requireContext(), 2)
+        recycler.adapter = com.example.moozik.adapters.ProductAdapter(products) { product ->
+            navigateTo(com.example.moozik.ProductFragments.ProductDetailFragment.newInstance(product), addToBackStack = true)
+        }
+
+        if (recycler.itemDecorationCount == 0) {
             val spacing = resources.getDimensionPixelSize(R.dimen.catalog_card_spacing)
             recycler.addItemDecoration(object : androidx.recyclerview.widget.RecyclerView.ItemDecoration() {
                 override fun getItemOffsets(outRect: android.graphics.Rect, view: View, parent: androidx.recyclerview.widget.RecyclerView, state: androidx.recyclerview.widget.RecyclerView.State) {
@@ -132,8 +137,6 @@ class StoreFragment : BaseScreenFragment(R.layout.activity_main) {
                     outRect.bottom = spacing / 2
                 }
             })
-        } catch (e: Exception) {
-            // ignore
         }
     }
 
