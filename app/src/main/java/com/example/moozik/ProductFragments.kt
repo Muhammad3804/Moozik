@@ -2,12 +2,17 @@ package com.example.moozik
 
 import android.os.Build
 import android.os.Bundle
+import android.graphics.Rect
 import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.appcompat.widget.Toolbar
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.moozik.adapters.ProductAdapter
+import com.example.moozik.data.ProductRepository
 import com.example.moozik.models.Product
 
 class ProductFragments {
@@ -36,8 +41,21 @@ class ProductFragments {
             descView.text = product.description + "\n\n" + extraDesc
 
             val img = view.findViewById<ImageView>(R.id.imageProductLarge)
-            // Use a generic placeholder for now (XML vector drawable)
-            img.setImageDrawable(AppCompatResources.getDrawable(requireContext(), R.drawable.ic_image))
+            img.setImageResource(product.imageRes ?: R.drawable.ic_image)
+
+            val similarRecycler = view.findViewById<RecyclerView>(R.id.recyclerSimilarProducts)
+            val related = ProductRepository.relatedProducts(product)
+            similarRecycler.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            similarRecycler.adapter = ProductAdapter(related) { relatedProduct ->
+                navigateTo(newInstance(relatedProduct), addToBackStack = true)
+            }
+            val spacing = resources.getDimensionPixelSize(R.dimen.catalog_card_spacing)
+            similarRecycler.addItemDecoration(object : RecyclerView.ItemDecoration() {
+                override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
+                    outRect.right = spacing / 2
+                }
+            })
+            similarRecycler.visibility = if (related.isEmpty()) View.GONE else View.VISIBLE
 
             view.findViewById<Button>(R.id.btnBuyNow).setOnClickListener {
                 // Since there's no backend, show simple feedback using navigation or a Toast

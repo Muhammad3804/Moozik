@@ -138,60 +138,14 @@
                 android:textColor="#1A1A1A"
                 android:textStyle="bold" />
 
-            <HorizontalScrollView
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerSimilarProducts"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/catalog_card_height"
                 android:layout_marginTop="8dp"
-                android:scrollbars="none">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <!-- We'll use simple placeholders; products already exist on main screen -->
-                    <LinearLayout
-                        android:layout_width="120dp"
-                        android:layout_height="160dp"
-                        android:orientation="vertical"
-                        android:background="#FFFFFF"
-                        android:padding="8dp"
-                        android:layout_marginEnd="12dp"
-                        android:backgroundTint="#FFFFFF">
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="80dp"
-                            android:background="#D9D9D9" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"
-                            android:text="Sample" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="120dp"
-                        android:layout_height="160dp"
-                        android:orientation="vertical"
-                        android:background="#FFFFFF"
-                        android:padding="8dp"
-                        android:layout_marginEnd="12dp">
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="80dp"
-                            android:background="#D9D9D9" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"
-                            android:text="Sample" />
-                    </LinearLayout>
-                </LinearLayout>
-            </HorizontalScrollView>
+                android:clipToPadding="false"
+                android:nestedScrollingEnabled="false"
+                android:paddingEnd="8dp" />
 
         </LinearLayout>
     </ScrollView>

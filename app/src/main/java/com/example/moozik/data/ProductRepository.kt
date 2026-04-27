@@ -53,5 +53,13 @@ object ProductRepository {
         Product("o5", "Boss Katana Mini", "Other", "PKR 22,000", 4.5, "Small practice amp with great tone.", R.drawable.logo),
         Product("o6", "AKG K240", "Other", "PKR 18,500", 4.6, "Studio headphones with balanced response.", R.drawable.logo)
     )
+
+    fun relatedProducts(current: Product, limit: Int = 8): List<Product> {
+        return allProducts()
+            .asSequence()
+            .filter { it.category == current.category && it.id != current.id }
+            .take(limit)
+            .toList()
+    }
 }
 
