@@ -34,6 +34,7 @@
                     android:src="@drawable/ic_piano_keys" />
 
                 <EditText
+                    android:id="@+id/editSignupUsername"
                     android:layout_width="match_parent"
                     android:layout_height="35dp"
                     android:layout_marginBottom="12dp"

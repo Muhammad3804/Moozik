@@ -4,6 +4,7 @@ import android.content.Intent
 import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.widget.Button
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -15,6 +16,7 @@ class LoginActivity : AppCompatActivity() {
 
         val btnLogin = findViewById<Button>(R.id.btnLogin)
         val btnNoAccount = findViewById<TextView>(R.id.btnNoAccount)
+        val emailInput = findViewById<EditText>(R.id.editLoginEmail)
         val logo = findViewById<ImageView>(R.id.ivAuthLogoLogin)
 
         try {
@@ -26,8 +28,14 @@ class LoginActivity : AppCompatActivity() {
         }
 
         btnLogin.setOnClickListener {
-            // Navigate to Main Store (MainActivity)
-            startActivity(Intent(this, MainActivity::class.java))
+            val enteredEmail = emailInput.text?.toString()?.trim().orEmpty()
+            val userName = enteredEmail.substringBefore("@").ifBlank { "Guest User" }
+
+            startActivity(
+                Intent(this, MainActivity::class.java)
+                    .putExtra(MainActivity.EXTRA_START_SCREEN, MainActivity.DESTINATION_STORE)
+                    .putExtra(MainActivity.EXTRA_USER_NAME, userName)
+            )
             finish()
         }
 

@@ -8,7 +8,6 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import com.google.android.material.navigation.NavigationView
@@ -69,12 +68,14 @@ class StoreFragment : BaseScreenFragment(R.layout.activity_main) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val userName = arguments?.getString(ARG_USER_NAME) ?: "Guest User"
+
         val drawerLayout = view.findViewById<DrawerLayout>(R.id.drawerLayout)
         val navigationView = view.findViewById<NavigationView>(R.id.navigationView)
         val btnMenu = view.findViewById<ImageView>(R.id.btnMenu)
 
         val headerView = navigationView.getHeaderView(0)
-        headerView.findViewById<TextView>(R.id.navHeaderUserName).text = "Guest User"
+        headerView.findViewById<TextView>(R.id.navHeaderUserName).text = userName
         headerView.findViewById<TextView>(R.id.navHeaderUserEmail).text = "guest@moozik.com"
 
         navigationView.menu.findItem(R.id.nav_admin_panel)?.isVisible = false
@@ -108,6 +109,18 @@ class StoreFragment : BaseScreenFragment(R.layout.activity_main) {
             onProfile = { navigateTo(ProfileFragment()) }
         )
     }
+
+    companion object {
+        private const val ARG_USER_NAME = "arg_user_name"
+
+        fun newInstance(userName: String): StoreFragment {
+            return StoreFragment().apply {
+                arguments = Bundle().apply {
+                    putString(ARG_USER_NAME, userName)
+                }
+            }
+        }
+    }
 }
 
 class LessonsFragment : BaseScreenFragment(R.layout.activity_lessons) {
@@ -121,7 +134,14 @@ class LessonsFragment : BaseScreenFragment(R.layout.activity_lessons) {
         bindBottomNav(
             root = view,
             selectedIndex = 1,
-            onStore = { navigateTo(StoreFragment()) },
+            onStore = {
+                navigateTo(
+                    StoreFragment.newInstance(
+                        requireActivity().intent.getStringExtra(MainActivity.EXTRA_USER_NAME)
+                            ?: "Guest User"
+                    )
+                )
+            },
             onLessons = { },
             onCart = { navigateTo(CartFragment()) },
             onProfile = { navigateTo(ProfileFragment()) }
@@ -136,7 +156,14 @@ class CartFragment : BaseScreenFragment(R.layout.activity_cart) {
         bindBottomNav(
             root = view,
             selectedIndex = 2,
-            onStore = { navigateTo(StoreFragment()) },
+            onStore = {
+                navigateTo(
+                    StoreFragment.newInstance(
+                        requireActivity().intent.getStringExtra(MainActivity.EXTRA_USER_NAME)
+                            ?: "Guest User"
+                    )
+                )
+            },
             onLessons = { navigateTo(LessonsFragment()) },
             onCart = { },
             onProfile = { navigateTo(ProfileFragment()) }
@@ -151,23 +178,17 @@ class ProfileFragment : BaseScreenFragment(R.layout.activity_profile) {
         bindBottomNav(
             root = view,
             selectedIndex = 3,
-            onStore = { navigateTo(StoreFragment()) },
+            onStore = {
+                navigateTo(
+                    StoreFragment.newInstance(
+                        requireActivity().intent.getStringExtra(MainActivity.EXTRA_USER_NAME)
+                            ?: "Guest User"
+                    )
+                )
+            },
             onLessons = { navigateTo(LessonsFragment()) },
             onCart = { navigateTo(CartFragment()) },
             onProfile = { }
         )
     }
 }
-
-class TeacherFragment : BaseScreenFragment(R.layout.activity_teacher) {
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        view.findViewById<Toolbar>(R.id.teacherToolbar).setNavigationOnClickListener {
-            parentFragmentManager.popBackStack()
-        }
-        view.findViewById<Toolbar>(R.id.teacherToolbar).navigationIcon =
-            androidx.appcompat.content.res.AppCompatResources.getDrawable(requireContext(), R.drawable.ic_back)
-    }
-}
-

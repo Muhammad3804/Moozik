@@ -4,6 +4,7 @@ import android.content.Intent
 import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.widget.Button
+import android.widget.EditText
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 
@@ -13,6 +14,7 @@ class SignupActivity : AppCompatActivity() {
         setContentView(R.layout.activity_signup)
 
         val btnSignup = findViewById<Button>(R.id.btnSignup)
+        val usernameInput = findViewById<EditText>(R.id.editSignupUsername)
         val logo = findViewById<ImageView>(R.id.ivAuthLogoSignup)
 
         try {
@@ -24,8 +26,13 @@ class SignupActivity : AppCompatActivity() {
         }
 
         btnSignup.setOnClickListener {
-            // Navigate to Main Store (MainActivity)
-            startActivity(Intent(this, MainActivity::class.java))
+            val userName = usernameInput.text?.toString()?.trim().orEmpty().ifBlank { "Guest User" }
+
+            startActivity(
+                Intent(this, MainActivity::class.java)
+                    .putExtra(MainActivity.EXTRA_START_SCREEN, MainActivity.DESTINATION_STORE)
+                    .putExtra(MainActivity.EXTRA_USER_NAME, userName)
+            )
             finish()
         }
     }
