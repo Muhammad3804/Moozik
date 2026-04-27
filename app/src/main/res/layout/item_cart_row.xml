@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingVertical="8dp">
+
+    <ImageView
+        android:id="@+id/imgCartProduct"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/ic_image" />
+
+    <TextView
+        android:id="@+id/txtCartName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/imgCartProduct"
+        android:layout_marginStart="12dp"
+        android:textColor="#1A1A1A"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/txtCartPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txtCartName"
+        android:layout_toEndOf="@id/imgCartProduct"
+        android:layout_marginStart="12dp"
+        android:textColor="#FF4444" />
+
+    <TextView
+        android:id="@+id/txtCartQty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txtCartPrice"
+        android:layout_toEndOf="@id/imgCartProduct"
+        android:layout_marginStart="12dp"
+        android:textColor="#666666"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/btnRemoveItem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:text="Remove"
+        android:textColor="#FF4444"
+        android:textSize="12sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="8dp"
+        android:background="#EEEEEE" />
+</RelativeLayout>
+

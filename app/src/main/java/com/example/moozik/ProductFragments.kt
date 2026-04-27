@@ -63,6 +63,7 @@ class ProductFragments {
             }
 
             view.findViewById<Button>(R.id.btnAddCart).setOnClickListener {
+                (activity as? MainActivity)?.addToCart(product)
                 android.widget.Toast.makeText(requireContext(), "Added to cart: ${product.title}", android.widget.Toast.LENGTH_SHORT).show()
             }
 

@@ -8,8 +8,11 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
+import com.example.moozik.adapters.CartAdapter
 import com.google.android.material.navigation.NavigationView
 
 private const val NAV_ACTIVE = "#FFC3C3"
@@ -177,6 +180,8 @@ class CartFragment : BaseScreenFragment(R.layout.activity_cart) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        renderCart(view)
+
         bindBottomNav(
             root = view,
             selectedIndex = 2,
@@ -192,6 +197,31 @@ class CartFragment : BaseScreenFragment(R.layout.activity_cart) {
             onCart = { },
             onProfile = { navigateTo(ProfileFragment()) }
         )
+    }
+
+    private fun renderCart(root: View) {
+        val host = activity as? MainActivity ?: return
+        val items = host.getCartItems().toMutableList()
+
+        val recycler = root.findViewById<RecyclerView>(R.id.recyclerCartItems)
+        recycler.layoutManager = LinearLayoutManager(requireContext())
+        recycler.adapter = CartAdapter(items) { cartItem ->
+            host.removeFromCart(cartItem.product.id)
+            renderCart(root)
+        }
+
+        val subtotal = host.getCartSubtotal()
+        val shipping = if (items.isEmpty()) 0 else 500
+        val total = subtotal + shipping
+
+        root.findViewById<TextView>(R.id.textSubtotalValue).text = formatPkr(subtotal)
+        root.findViewById<TextView>(R.id.textShippingValue).text = formatPkr(shipping)
+        root.findViewById<TextView>(R.id.textTotalValue).text = formatPkr(total)
+        root.findViewById<TextView>(R.id.textEmptyCart).visibility = if (items.isEmpty()) View.VISIBLE else View.GONE
+    }
+
+    private fun formatPkr(value: Int): String {
+        return "PKR ${"%,d".format(value)}"
     }
 }
 
