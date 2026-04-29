@@ -7,8 +7,6 @@ import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.appcompat.content.res.AppCompatResources
-import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.moozik.adapters.ProductAdapter
@@ -23,10 +21,18 @@ class ProductFragments {
         override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
             super.onViewCreated(view, savedInstanceState)
 
-            val toolbar = view.findViewById<Toolbar>(R.id.productToolbar)
-            toolbar.navigationIcon =
-                AppCompatResources.getDrawable(requireContext(), R.drawable.ic_back)
-            toolbar.setNavigationOnClickListener { parentFragmentManager.popBackStack() }
+            val btnBack = view.findViewById<ImageView>(R.id.btnBack)
+            btnBack.setOnClickListener { parentFragmentManager.popBackStack() }
+
+            val btnCart = view.findViewById<ImageView>(R.id.btnCart)
+            btnCart.setOnClickListener {
+                navigateTo(CartFragment())
+            }
+
+            val btnShare = view.findViewById<ImageView>(R.id.btnShare)
+            btnShare.setOnClickListener {
+                android.widget.Toast.makeText(requireContext(), "Share product", android.widget.Toast.LENGTH_SHORT).show()
+            }
 
             val product = readProductFromArgs() ?: return
 

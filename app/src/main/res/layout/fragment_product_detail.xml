@@ -6,16 +6,56 @@
     android:orientation="vertical"
     android:background="#FFFFFF">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/productToolbar"
+    <!-- Header matching other sections (Cart, Lessons) -->
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="90dp"
         android:background="@drawable/bg_header_rounded_small"
-        android:minHeight="56dp"
-        android:paddingStart="12dp"
-        android:paddingTop="16dp"
-        android:paddingEnd="12dp"
-        app:titleTextColor="#FF5252" />
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="12dp">
+
+        <ImageView
+            android:id="@+id/btnBack"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_marginEnd="8dp"
+            android:contentDescription="Back"
+            android:src="@drawable/ic_back"
+            app:tint="#FF5252" />
+
+        <EditText
+            android:id="@+id/searchBarDetail"
+            android:layout_width="0dp"
+            android:layout_height="28dp"
+            android:layout_marginEnd="8dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_search_bar"
+            android:hint="Search in store"
+            android:inputType="text"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            android:textColor="#BFEA4243"
+            android:textColorHint="#BFEA4243"
+            android:textSize="12sp" />
+
+        <ImageView
+            android:id="@+id/btnCart"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_marginEnd="8dp"
+            android:contentDescription="Shopping cart"
+            android:src="@drawable/ic_cart"
+            app:tint="#FF5252" />
+
+        <ImageView
+            android:id="@+id/btnShare"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:contentDescription="Share"
+            android:src="@drawable/ic_arrow_right"
+            app:tint="#FF5252" />
+    </LinearLayout>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -26,17 +66,14 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="16dp">
+            android:orientation="vertical">
 
-            <!-- Image area -->
+            <!-- Large product image area (50% of page) -->
             <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="220dp"
-                android:background="@drawable/bg_card"
-                android:padding="12dp">
+                android:layout_height="300dp"
+                android:background="@drawable/bg_card">
 
-                <!-- use existing drawable placeholder which has rounded corners -->
                 <ImageView
                     android:id="@+id/imageProductLarge"
                     android:layout_width="match_parent"
@@ -44,150 +81,333 @@
                     android:adjustViewBounds="true"
                     android:scaleType="centerInside"
                     android:background="@drawable/bg_image_placeholder"
+                    android:contentDescription="Product image"
                     android:src="@drawable/ic_image" />
             </FrameLayout>
-
-            <!-- Title, rating, price -->
-            <TextView
-                android:id="@+id/textProductTitle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:textColor="#1A1A1A" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="6dp">
-
-                <TextView
-                    android:id="@+id/textProductRating"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:textColor="#FF4444"
-                    android:textSize="14sp" />
-
-                <TextView
-                    android:id="@+id/textProductPrice"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="#1A1A1A"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
-
-            <!-- Description -->
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:text="Description"
-                android:textColor="#1A1A1A"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/textProductDescription"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
-                android:textColor="#333333" />
-
-            <!-- Reviews (static sample) -->
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="Reviews"
-                android:textColor="#1A1A1A"
-                android:textStyle="bold" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_marginTop="8dp">
+                android:padding="16dp">
 
+                <!-- Price section (orange) -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginBottom="12dp">
+
+                    <TextView
+                        android:id="@+id/textProductPrice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#FF9800"
+                        android:textSize="24sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/textProductTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:textColor="#1A1A1A" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="4dp">
+
+                        <TextView
+                            android:id="@+id/textProductRating"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:textColor="#FF4444"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Free Delivery"
+                            android:textColor="#FFFFFF"
+                            android:textSize="10sp"
+                            android:background="#4CAF50"
+                            android:paddingStart="6dp"
+                            android:paddingEnd="6dp"
+                            android:paddingTop="2dp"
+                            android:paddingBottom="2dp" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <!-- Vouchers section -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginBottom="16dp"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="12dp"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp"
+                    android:background="#F5F5F5">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Vouchers"
+                        android:textColor="#1A1A1A"
+                        android:textStyle="bold"
+                        android:textSize="13sp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="6dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Free shipping"
+                            android:textColor="#FFFFFF"
+                            android:textSize="11sp"
+                            android:background="#FF9800"
+                            android:paddingStart="8dp"
+                            android:paddingEnd="8dp"
+                            android:paddingTop="3dp"
+                            android:paddingBottom="3dp"
+                            android:layout_marginEnd="6dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Popular Pick"
+                            android:textColor="#FFFFFF"
+                            android:textSize="11sp"
+                            android:background="#FF1744"
+                            android:paddingStart="8dp"
+                            android:paddingEnd="8dp"
+                            android:paddingTop="3dp"
+                            android:paddingBottom="3dp" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <!-- Reviews section -->
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Ali — 5.0\nGreat instrument, sounds amazing and build quality is solid."
+                    android:text="Reviews"
                     android:textColor="#1A1A1A"
-                    android:padding="8dp"
-                    android:background="#F8F8F8" />
+                    android:textStyle="bold"
+                    android:textSize="14sp"
+                    android:layout_marginBottom="8dp" />
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginBottom="16dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Ali — 5.0\nGreat instrument, sounds amazing and build quality is solid."
+                        android:textColor="#1A1A1A"
+                        android:padding="8dp"
+                        android:textSize="12sp"
+                        android:background="#F8F8F8"
+                        android:layout_marginBottom="6dp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Sara — 4.5\nComfortable to play, recommended for intermediate players."
+                        android:textColor="#1A1A1A"
+                        android:padding="8dp"
+                        android:textSize="12sp"
+                        android:background="#F8F8F8" />
+                </LinearLayout>
+
+                <!-- About the store section -->
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:text="Sara — 4.5\nComfortable to play, recommended for intermediate players."
+                    android:text="About the Store"
                     android:textColor="#1A1A1A"
-                    android:padding="8dp"
-                    android:background="#F8F8F8" />
+                    android:textStyle="bold"
+                    android:textSize="14sp"
+                    android:layout_marginBottom="8dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="12dp"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp"
+                    android:background="#F5F5F5"
+                    android:layout_marginBottom="16dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginBottom="6dp">
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_marginEnd="8dp"
+                            android:contentDescription="Store"
+                            android:src="@drawable/ic_shop"
+                            app:tint="#FF9800" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:text="Official Music Store"
+                            android:textColor="#1A1A1A"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginBottom="6dp">
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_marginEnd="8dp"
+                            android:contentDescription="Delivery"
+                            android:src="@drawable/ic_shop"
+                            app:tint="#FF9800" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:text="14 days easy return"
+                            android:textColor="#1A1A1A"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_marginEnd="8dp"
+                            android:contentDescription="Guarantee"
+                            android:src="@drawable/ic_shop"
+                            app:tint="#FF9800" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:text="Guaranteed by 6-8 May"
+                            android:textColor="#1A1A1A"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <!-- Similar products section -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Similar Products"
+                    android:textColor="#1A1A1A"
+                    android:textStyle="bold"
+                    android:textSize="14sp"
+                    android:layout_marginBottom="8dp" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerSimilarProducts"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/catalog_card_height"
+                    android:layout_marginBottom="16dp"
+                    android:clipToPadding="false"
+                    android:nestedScrollingEnabled="false"
+                    android:paddingEnd="8dp" />
+
+                <!-- Product description section -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Description"
+                    android:textColor="#1A1A1A"
+                    android:textStyle="bold"
+                    android:textSize="14sp"
+                    android:layout_marginBottom="8dp" />
+
+                <TextView
+                    android:id="@+id/textProductDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#333333"
+                    android:textSize="12sp"
+                    android:lineSpacingMultiplier="1.2"
+                    android:layout_marginBottom="16dp" />
+
             </LinearLayout>
-
-            <!-- Similar products (simple horizontal scroll of small cards referencing main screen) -->
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="Similar Products"
-                android:textColor="#1A1A1A"
-                android:textStyle="bold" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerSimilarProducts"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/catalog_card_height"
-                android:layout_marginTop="8dp"
-                android:clipToPadding="false"
-                android:nestedScrollingEnabled="false"
-                android:paddingEnd="8dp" />
-
         </LinearLayout>
     </ScrollView>
 
     <!-- Footer with chat icon + two equal buttons -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="64dp"
+        android:layout_height="56dp"
         android:orientation="horizontal"
         android:padding="8dp"
-        android:background="@drawable/bg_footer_rounded">
+        android:background="@drawable/bg_footer_rounded"
+        android:gravity="center_vertical">
 
         <ImageView
             android:id="@+id/btnChatSeller"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_gravity="center_vertical"
-            android:padding="8dp"
-            android:src="@drawable/ic_notification" />
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:contentDescription="Chat with seller"
+            android:padding="6dp"
+            android:src="@drawable/ic_notification"
+            app:tint="#FF9800" />
 
-        <Space android:layout_width="8dp" android:layout_height="1dp" />
+        <Space
+            android:layout_width="8dp"
+            android:layout_height="1dp" />
 
         <Button
             android:id="@+id/btnBuyNow"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="40dp"
             android:layout_weight="1"
-            android:layout_marginEnd="8dp"
+            android:layout_marginEnd="6dp"
             android:background="@drawable/bg_button_primary"
             android:text="Buy Now"
             android:textAllCaps="false"
-            android:textColor="#FFFFFF" />
+            android:textColor="#FFFFFF"
+            android:textSize="13sp" />
 
         <Button
             android:id="@+id/btnAddCart"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="40dp"
             android:layout_weight="1"
             android:background="@drawable/bg_button_auth"
             android:text="Add to Cart"
             android:textAllCaps="false"
-            android:textColor="#000000" />
+            android:textColor="#000000"
+            android:textSize="13sp" />
 
     </LinearLayout>
 
