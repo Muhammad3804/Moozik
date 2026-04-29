@@ -12,6 +12,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.moozik.adapters.ProductAdapter
+import com.example.moozik.util.loadImageFromAssets
 import com.example.moozik.data.ProductRepository
 import com.example.moozik.models.Product
 
@@ -41,7 +42,8 @@ class ProductFragments {
             descView.text = product.description + "\n\n" + extraDesc
 
             val img = view.findViewById<ImageView>(R.id.imageProductLarge)
-            img.setImageResource(product.imageRes ?: R.drawable.ic_image)
+            // load large image from assets (fallback to bundled drawable)
+            img.loadImageFromAssets(product.title, R.drawable.ic_image)
 
             val similarRecycler = view.findViewById<RecyclerView>(R.id.recyclerSimilarProducts)
             val related = ProductRepository.relatedProducts(product)

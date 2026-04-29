@@ -7,6 +7,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.moozik.R
+import com.example.moozik.util.loadImageFromAssets
 import com.example.moozik.models.CartItem
 
 class CartAdapter(
@@ -24,7 +25,7 @@ class CartAdapter(
         holder.name.text = item.product.title
         holder.price.text = item.product.price
         holder.qty.text = "Qty: ${item.quantity}"
-        holder.image.setImageResource(item.product.imageRes ?: R.drawable.ic_image)
+        holder.image.loadImageFromAssets(item.product.title, R.drawable.ic_image)
         holder.remove.setOnClickListener { onRemove(item) }
     }
 

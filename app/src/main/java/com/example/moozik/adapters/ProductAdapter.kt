@@ -7,6 +7,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.moozik.R
+import com.example.moozik.util.loadImageFromAssets
 import com.example.moozik.models.Product
 
 class ProductAdapter(
@@ -23,7 +24,8 @@ class ProductAdapter(
         val p = items[position]
         holder.tvTitle.text = p.title
         holder.tvPrice.text = p.price
-        holder.img.setImageResource(p.imageRes ?: R.drawable.ic_image)
+        // Load image from assets using product title (fallback to bundled drawable)
+        holder.img.loadImageFromAssets(p.title, R.drawable.ic_image)
         holder.itemView.setOnClickListener { onClick(p) }
     }
 

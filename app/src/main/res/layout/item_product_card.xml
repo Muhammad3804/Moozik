@@ -12,13 +12,6 @@
         android:layout_weight="1"
         android:foregroundGravity="center">
 
-        <View
-            android:layout_width="142dp"
-            android:layout_height="142dp"
-            android:layout_gravity="center"
-            android:background="#D9D9D9"
-            android:contentDescription="image placeholder" />
-
         <ImageView
             android:id="@+id/imgCard"
             android:layout_width="142dp"
@@ -26,6 +19,8 @@
             android:layout_gravity="center"
             android:adjustViewBounds="true"
             android:scaleType="centerInside"
+            android:background="@drawable/bg_image_placeholder"
+            android:contentDescription="Product image"
             android:src="@drawable/ic_image" />
     </FrameLayout>
 

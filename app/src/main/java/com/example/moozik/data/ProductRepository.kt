@@ -7,7 +7,7 @@ object ProductRepository {
     fun allProducts(): List<Product> = listOf(
         Product("g1", "Fender Stratocaster", "Guitar", "PKR 145,000", 4.8, "Classic Fender Strat. Alder body, maple neck. Great for rock and blues.", R.drawable.logo),
         Product("g2", "Gibson Les Paul", "Guitar", "PKR 220,000", 4.9, "Mahogany body with carved maple top, warm sustain for leads and rhythm.", R.drawable.logo),
-        Product("g3", "Yamaha FG800", "Guitar", "PKR 48,500", 4.6, "Solid top acoustic guitar, easy playability for beginners.", R.drawable.logo),
+        Product("g3", "Synyster Schecter", "Guitar", "PKR 320,000", 5.0, "Solid top acoustic guitar, easy playability for beginners.", R.drawable.logo),
         Product("g4", "Ibanez RG Series", "Guitar", "PKR 98,000", 4.7, "High-performance neck, double-lock tremolo, great for shredding.", R.drawable.logo),
         Product("g5", "Taylor 214ce", "Guitar", "PKR 210,000", 4.9, "Grand Auditorium acoustic-electric with rich tone and onboard electronics.", R.drawable.logo),
         Product("g6", "PRS SE Custom 24", "Guitar", "PKR 160,000", 4.8, "Versatile player's guitar with great contour and balanced pickups.", R.drawable.logo),
@@ -50,8 +50,8 @@ object ProductRepository {
         Product("o2", "Kala Ukulele", "Other", "PKR 6,500", 4.4, "Concert uke with warm tone.", R.drawable.logo),
         Product("o3", "Meinl Cajon", "Other", "PKR 18,000", 4.6, "Portable cajon with adjustable snare.", R.drawable.logo),
         Product("o4", "Shure SM58", "Other", "PKR 28,000", 4.8, "Industry standard vocal microphone.", R.drawable.logo),
-        Product("o5", "Boss Katana Mini", "Other", "PKR 22,000", 4.5, "Small practice amp with great tone.", R.drawable.logo),
-        Product("o6", "AKG K240", "Other", "PKR 18,500", 4.6, "Studio headphones with balanced response.", R.drawable.logo)
+        Product("o5", "Fender Mustang GT-40", "Other", "PKR 82,000", 4.5, "Small practice amp with great tone.", R.drawable.logo),
+        Product("o6", "AKG K240", "Other", "PKR 150,500", 4.6, "Studio headphones with balanced response.", R.drawable.logo)
     )
 
     fun relatedProducts(current: Product, limit: Int = 8): List<Product> {
