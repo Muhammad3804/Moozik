@@ -1,6 +1,7 @@
 package com.example.moozik
 
-import android.graphics.Color
+import android.content.Intent
+import android.graphics.Rect
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
@@ -12,7 +13,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
+import androidx.core.view.GravityCompat
+import androidx.core.graphics.toColorInt
 import com.example.moozik.adapters.CartAdapter
+import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.material.navigation.NavigationView
 
 private const val NAV_ACTIVE = "#FFC3C3"
@@ -25,16 +29,16 @@ object BottomNavUi {
         val iconCart = root.findViewById<ImageView>(R.id.iconCart)
         val iconProfile = root.findViewById<ImageView>(R.id.iconProfile)
 
-        iconShop?.setColorFilter(Color.parseColor(NAV_INACTIVE))
-        iconLessons?.setColorFilter(Color.parseColor(NAV_INACTIVE))
-        iconCart?.setColorFilter(Color.parseColor(NAV_INACTIVE))
-        iconProfile?.setColorFilter(Color.parseColor(NAV_INACTIVE))
+        iconShop?.setColorFilter(NAV_INACTIVE.toColorInt())
+        iconLessons?.setColorFilter(NAV_INACTIVE.toColorInt())
+        iconCart?.setColorFilter(NAV_INACTIVE.toColorInt())
+        iconProfile?.setColorFilter(NAV_INACTIVE.toColorInt())
 
         when (selectedIndex) {
-            0 -> iconShop?.setColorFilter(Color.parseColor(NAV_ACTIVE))
-            1 -> iconLessons?.setColorFilter(Color.parseColor(NAV_ACTIVE))
-            2 -> iconCart?.setColorFilter(Color.parseColor(NAV_ACTIVE))
-            3 -> iconProfile?.setColorFilter(Color.parseColor(NAV_ACTIVE))
+            0 -> iconShop?.setColorFilter(NAV_ACTIVE.toColorInt())
+            1 -> iconLessons?.setColorFilter(NAV_ACTIVE.toColorInt())
+            2 -> iconCart?.setColorFilter(NAV_ACTIVE.toColorInt())
+            3 -> iconProfile?.setColorFilter(NAV_ACTIVE.toColorInt())
         }
     }
 }
@@ -68,6 +72,16 @@ abstract class BaseScreenFragment(layoutId: Int) : Fragment(layoutId) {
 }
 
 class StoreFragment : BaseScreenFragment(R.layout.activity_main) {
+
+    private val sectionIds = mapOf(
+        "Guitar" to R.id.sectionGuitars,
+        "Drums" to R.id.sectionDrums,
+        "Piano" to R.id.sectionPianos,
+        "Bass" to R.id.sectionBass,
+        "Violin" to R.id.sectionViolins,
+        "Other" to R.id.sectionOthers,
+    )
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -79,27 +93,27 @@ class StoreFragment : BaseScreenFragment(R.layout.activity_main) {
 
         val headerView = navigationView.getHeaderView(0)
         headerView.findViewById<TextView>(R.id.navHeaderUserName).text = userName
-        headerView.findViewById<TextView>(R.id.navHeaderUserEmail).text = "guest@moozik.com"
+        headerView.findViewById<TextView>(R.id.navHeaderUserEmail).text = getString(R.string.guest_email)
 
         navigationView.menu.findItem(R.id.nav_admin_panel)?.isVisible = false
 
         btnMenu.setOnClickListener {
-            drawerLayout.openDrawer(androidx.core.view.GravityCompat.START)
+            drawerLayout.openDrawer(GravityCompat.START)
         }
 
         navigationView.setNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.nav_profile -> navigateTo(ProfileFragment())
                 R.id.nav_admin_panel -> Toast.makeText(requireContext(), "Admin Panel (Coming Soon)", Toast.LENGTH_SHORT).show()
-                R.id.nav_guitars -> Toast.makeText(requireContext(), "Filter: Guitars", Toast.LENGTH_SHORT).show()
-                R.id.nav_drums -> Toast.makeText(requireContext(), "Filter: Drums", Toast.LENGTH_SHORT).show()
-                R.id.nav_pianos -> Toast.makeText(requireContext(), "Filter: Pianos", Toast.LENGTH_SHORT).show()
-                R.id.nav_bass -> Toast.makeText(requireContext(), "Filter: Bass", Toast.LENGTH_SHORT).show()
-                R.id.nav_violins -> Toast.makeText(requireContext(), "Filter: Violins", Toast.LENGTH_SHORT).show()
-                R.id.nav_other -> Toast.makeText(requireContext(), "Filter: Other Instruments", Toast.LENGTH_SHORT).show()
-                R.id.nav_logout -> Toast.makeText(requireContext(), "Logout (Coming Soon)", Toast.LENGTH_SHORT).show()
+                R.id.nav_guitars -> showOnlySection(view, "Guitar")
+                R.id.nav_drums -> showOnlySection(view, "Drums")
+                R.id.nav_pianos -> showOnlySection(view, "Piano")
+                R.id.nav_bass -> showOnlySection(view, "Bass")
+                R.id.nav_violins -> showOnlySection(view, "Violin")
+                R.id.nav_other -> showOnlySection(view, "Other")
+                R.id.nav_logout -> logoutToLogin()
             }
-            drawerLayout.closeDrawer(androidx.core.view.GravityCompat.START)
+            drawerLayout.closeDrawer(GravityCompat.START)
             true
         }
 
@@ -116,21 +130,41 @@ class StoreFragment : BaseScreenFragment(R.layout.activity_main) {
         setupProductSection(view, R.id.recyclerDrums, "Drums")
         setupProductSection(view, R.id.recyclerPianos, "Piano")
         setupProductSection(view, R.id.recyclerBass, "Bass")
+        setupProductSection(view, R.id.recyclerViolins, "Violin")
         setupProductSection(view, R.id.recyclerOthers, "Other")
+        showAllSections(view)
+    }
+
+    private fun showAllSections(root: View) {
+        sectionIds.values.forEach { id -> root.findViewById<View>(id)?.visibility = View.VISIBLE }
+    }
+
+    private fun showOnlySection(root: View, category: String) {
+        sectionIds.forEach { (mappedCategory, sectionId) ->
+            root.findViewById<View>(sectionId)?.visibility = if (mappedCategory == category) View.VISIBLE else View.GONE
+        }
+    }
+
+    private fun logoutToLogin() {
+        val intent = Intent(requireContext(), LoginActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        }
+        startActivity(intent)
+        requireActivity().finish()
     }
 
     private fun setupProductSection(root: View, recyclerId: Int, category: String) {
         val recycler = root.findViewById<RecyclerView>(recyclerId)
         val products = com.example.moozik.data.ProductRepository.allProducts().filter { it.category == category }
-        recycler.layoutManager = androidx.recyclerview.widget.GridLayoutManager(requireContext(), 2)
+        recycler.layoutManager = GridLayoutManager(requireContext(), 2)
         recycler.adapter = com.example.moozik.adapters.ProductAdapter(products) { product ->
-            navigateTo(com.example.moozik.ProductFragments.ProductDetailFragment.newInstance(product), addToBackStack = true)
+            navigateTo(ProductFragments.ProductDetailFragment.newInstance(product), addToBackStack = true)
         }
 
         if (recycler.itemDecorationCount == 0) {
             val spacing = resources.getDimensionPixelSize(R.dimen.catalog_card_spacing)
-            recycler.addItemDecoration(object : androidx.recyclerview.widget.RecyclerView.ItemDecoration() {
-                override fun getItemOffsets(outRect: android.graphics.Rect, view: View, parent: androidx.recyclerview.widget.RecyclerView, state: androidx.recyclerview.widget.RecyclerView.State) {
+            recycler.addItemDecoration(object : RecyclerView.ItemDecoration() {
+                override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
                     outRect.left = spacing / 2
                     outRect.right = spacing / 2
                     outRect.top = spacing / 2

@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">Moozik</string>
+    <string name="logo_description">Moozik logo</string>
+    <string name="search_in_store">Search in store</string>
+    <string name="guest_email">guest@moozik.com</string>
+    <string name="shop_guitars">Shop Guitars.</string>
+    <string name="shop_drums">Shop Drums.</string>
+    <string name="shop_pianos">Shop Pianos.</string>
+    <string name="shop_bass">Shop Bass.</string>
+    <string name="shop_violins">Shop Violins.</string>
+    <string name="shop_other_instruments">Other Instruments.</string>
 </resources>

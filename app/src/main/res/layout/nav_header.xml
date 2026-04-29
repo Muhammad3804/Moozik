@@ -21,7 +21,7 @@
         android:id="@+id/navHeaderUserName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Guest User"
+        android:text="    moho"
         android:textColor="#FFFFFF"
         android:textSize="16sp"
         android:textStyle="bold" />
@@ -30,7 +30,7 @@
         android:id="@+id/navHeaderUserEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="guest@moozik.com"
+        android:text="    moho@moozik.com"
         android:textColor="#FFC3C3"
         android:textSize="14sp" />
 </LinearLayout>
