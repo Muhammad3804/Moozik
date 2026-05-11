@@ -2,8 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.compose.compiler)
-    // TODO: Uncomment when Firebase is ready
-    // alias(libs.plugins.google.services)
+    alias(libs.plugins.google.services)
 }
 
 android {
@@ -16,7 +15,6 @@ android {
         targetSdk = 35
         versionCode = 1
         versionName = "1.0"
-
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -43,6 +41,7 @@ android {
 }
 
 dependencies {
+    // Core
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation("androidx.fragment:fragment-ktx:1.8.5")
@@ -52,6 +51,7 @@ dependencies {
     implementation("androidx.recyclerview:recyclerview:1.3.2")
     implementation(libs.androidx.viewpager2)
 
+    // Compose
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.graphics)
@@ -59,21 +59,21 @@ dependencies {
     implementation(libs.androidx.material3)
     implementation(libs.androidx.activity.compose)
 
-    // TODO: Uncomment when Firebase is ready
     // Firebase
-    // implementation(platform(libs.firebase.bom))
-    // implementation(libs.firebase.auth.ktx)
-    // implementation(libs.firebase.firestore.ktx)
-    // implementation(libs.firebase.storage.ktx)
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.auth.ktx)
+    implementation(libs.firebase.firestore.ktx)
+    implementation(libs.firebase.storage.ktx)
+    implementation("com.google.android.gms:play-services-auth:20.7.0")
 
     // Coroutines
     implementation(libs.kotlinx.coroutines.android)
-    // implementation(libs.kotlinx.coroutines.play.services)
+    implementation(libs.kotlinx.coroutines.play.services)
 
     // Networking + Image Loading
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
-    implementation("com.github.bumptech.glide:glide:4.16.0")
+    implementation(libs.glide)
 
     debugImplementation(libs.androidx.ui.tooling)
 

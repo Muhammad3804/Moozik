@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "637406113075",
+    "project_id": "moozik-c41ec",
+    "storage_bucket": "moozik-c41ec.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:637406113075:android:85c493d83ddf400d0e2246",
+        "android_client_info": {
+          "package_name": "com.example.moozik"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "637406113075-6sekn0e897acgk7rq1alv7hrtcc8dkp4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.moozik",
+            "certificate_hash": "9fa5ed0385c7cb8f8e84dd2667205417934bb352"
+          }
+        },
+        {
+          "client_id": "637406113075-36l94m64psem47k5d27nlhlrb8g3m8il.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDSrtkHj0YvsPNbq4VR8a5ShxkXRyE_hKw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "637406113075-36l94m64psem47k5d27nlhlrb8g3m8il.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
