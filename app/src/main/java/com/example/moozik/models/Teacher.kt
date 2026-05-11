@@ -12,6 +12,7 @@ data class Teacher(
     val students: Int,
     val sessions: Int,
     val experience: String,
-    val specialty: String
+    val specialty: String,
+    val imageAsset: String = ""
 ) : Serializable
 

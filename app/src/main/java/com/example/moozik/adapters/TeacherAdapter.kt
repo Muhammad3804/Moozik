@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.moozik.R
 import com.example.moozik.models.Teacher
+import com.example.moozik.util.loadAssetImage
 
 class TeacherAdapter(
     private val onTeacherSelected: (Teacher) -> Unit
@@ -49,7 +50,11 @@ class TeacherAdapter(
         private val buttonBook: Button = itemView.findViewById(R.id.buttonBookTeacher)
 
         fun bind(teacher: Teacher) {
-            imageAvatar.setImageResource(R.drawable.ic_avatar)
+            if (teacher.imageAsset.isNotBlank()) {
+                imageAvatar.loadAssetImage(teacher.imageAsset, R.drawable.ic_avatar)
+            } else {
+                imageAvatar.setImageResource(R.drawable.ic_avatar)
+            }
             textName.text = teacher.name
             textTitle.text = teacher.title
             textRating.text = "Rating ${teacher.rating}  |  ${teacher.hourlyPrice}"

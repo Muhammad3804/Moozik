@@ -24,6 +24,7 @@ import com.example.moozik.data.ApiProductDto
 import com.example.moozik.data.ProductRepository
 import com.example.moozik.data.RetrofitClient
 import com.example.moozik.adapters.CartAdapter
+import com.example.moozik.util.loadAssetImage
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.material.navigation.NavigationView
 import kotlinx.coroutines.Dispatchers
@@ -107,6 +108,7 @@ class StoreFragment : BaseScreenFragment(R.layout.activity_main) {
         val headerView = navigationView.getHeaderView(0)
         headerView.findViewById<TextView>(R.id.navHeaderUserName).text = userName
         headerView.findViewById<TextView>(R.id.navHeaderUserEmail).text = getString(R.string.guest_email)
+        headerView.findViewById<ImageView>(R.id.navHeaderLogo).loadAssetImage("accountimage.jpg", R.drawable.ic_piano_keys)
 
         navigationView.menu.findItem(R.id.nav_admin_panel)?.isVisible = false
 
@@ -338,6 +340,8 @@ class CartFragment : BaseScreenFragment(R.layout.activity_cart) {
 class ProfileFragment : BaseScreenFragment(R.layout.activity_profile) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        view.findViewById<ImageView>(R.id.imgAvatarProfile).loadAssetImage("accountimage.jpg", R.drawable.ic_avatar)
 
         bindBottomNav(
             root = view,

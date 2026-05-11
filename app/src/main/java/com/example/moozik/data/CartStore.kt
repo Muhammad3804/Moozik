@@ -172,7 +172,7 @@ object CartStore {
                         name = cursor.getString(titleIndex) ?: "",
                         price = cursor.getString(priceIndex) ?: "",
                         category = cursor.getString(categoryIndex) ?: "",
-                        rating = cursor.getString(ratingIndex),
+                        rating = cursor.getString(ratingIndex) ?: "0.0",
                         description = cursor.getString(descriptionIndex) ?: "",
                         imageUrl = cursor.getString(cursor.getColumnIndexOrThrow(COL_IMAGE_ASSET)) ?: ""
                     )
