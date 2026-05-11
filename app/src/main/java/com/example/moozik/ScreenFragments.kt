@@ -27,9 +27,13 @@ import com.example.moozik.adapters.CartAdapter
 import com.example.moozik.util.loadAssetImage
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.material.navigation.NavigationView
+import com.google.firebase.auth.FirebaseAuth
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import kotlinx.coroutines.tasks.await
 
 private const val NAV_ACTIVE = "#FFC3C3"
 private const val NAV_INACTIVE = "#FF5252"
@@ -198,11 +202,27 @@ class StoreFragment : BaseScreenFragment(R.layout.activity_main) {
     }
 
     private fun logoutToLogin() {
-        val intent = Intent(requireContext(), LoginActivity::class.java).apply {
-            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
+            try {
+                FirebaseAuth.getInstance().signOut()
+                GoogleSignIn.getClient(
+                    requireContext(),
+                    GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                        .requestEmail()
+                        .build()
+                ).signOut().await()
+            } catch (_: Exception) {
+                // Continue to login even if Google sign-out fails.
+            }
+
+            withContext(Dispatchers.Main) {
+                val intent = Intent(requireContext(), LoginActivity::class.java).apply {
+                    flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                }
+                startActivity(intent)
+                requireActivity().finish()
+            }
         }
-        startActivity(intent)
-        requireActivity().finish()
     }
 
     private fun setupProductSection(root: View, recyclerId: Int, category: String, query: String = "") {
