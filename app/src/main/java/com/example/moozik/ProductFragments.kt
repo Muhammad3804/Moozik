@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.moozik.data.CartStore
@@ -14,6 +15,8 @@ import com.example.moozik.adapters.ProductAdapter
 import com.example.moozik.util.loadImageFromAssets
 import com.example.moozik.data.ProductRepository
 import com.example.moozik.models.Product
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class ProductFragments {
 
@@ -72,8 +75,10 @@ class ProductFragments {
             }
 
             view.findViewById<Button>(R.id.btnAddCart).setOnClickListener {
-                CartStore.addToCart(requireContext(), product)
-                android.widget.Toast.makeText(requireContext(), "Added to cart: ${product.title}", android.widget.Toast.LENGTH_SHORT).show()
+                viewLifecycleOwner.lifecycleScope.launch(Dispatchers.Main) {
+                    CartStore.addToCart(requireContext(), product)
+                    android.widget.Toast.makeText(requireContext(), "Added to cart: ${product.title}", android.widget.Toast.LENGTH_SHORT).show()
+                }
             }
 
             view.findViewById<ImageView>(R.id.btnChatSeller).setOnClickListener {

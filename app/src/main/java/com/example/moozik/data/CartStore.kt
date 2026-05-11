@@ -4,8 +4,11 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import com.example.moozik.models.CartItem
 import com.example.moozik.models.Product
+import com.example.moozik.data.ProductRepository
 
 private const val DB_NAME = "moozik_store.db"
 private const val DB_VERSION = 1
@@ -69,7 +72,7 @@ class MoozikDatabaseHelper(context: Context) : SQLiteOpenHelper(
 
 object CartStore {
 
-    fun syncCatalog(context: Context) {
+    suspend fun syncCatalog(context: Context) = withContext(Dispatchers.IO) {
         val db = helper(context).writableDatabase
         try {
             ensureCatalogSeeded(db)
@@ -78,8 +81,8 @@ object CartStore {
         }
     }
 
-    fun addToCart(context: Context, product: Product, quantity: Int = 1) {
-        if (quantity <= 0) return
+    suspend fun addToCart(context: Context, product: Product, quantity: Int = 1) = withContext(Dispatchers.IO) {
+        if (quantity <= 0) return@withContext
         val db = helper(context).writableDatabase
         db.beginTransaction()
         try {
@@ -104,7 +107,7 @@ object CartStore {
         }
     }
 
-    fun removeOneFromCart(context: Context, productId: String) {
+    suspend fun removeOneFromCart(context: Context, productId: String) = withContext(Dispatchers.IO) {
         val db = helper(context).writableDatabase
         db.beginTransaction()
         try {
@@ -122,7 +125,7 @@ object CartStore {
         }
     }
 
-    fun setQuantity(context: Context, productId: String, quantity: Int) {
+    suspend fun setQuantity(context: Context, productId: String, quantity: Int) = withContext(Dispatchers.IO) {
         val db = helper(context).writableDatabase
         db.beginTransaction()
         try {
@@ -139,7 +142,7 @@ object CartStore {
         }
     }
 
-    fun getCartItems(context: Context, query: String = ""): List<CartItem> {
+    suspend fun getCartItems(context: Context, query: String = ""): List<CartItem> = withContext(Dispatchers.IO) {
         val db = helper(context).writableDatabase
         try {
             ensureCatalogSeeded(db)
@@ -195,14 +198,14 @@ object CartStore {
                     )
                 }
             }
-            return items
+            items
         } finally {
             db.close()
         }
     }
 
-    fun getSubtotal(context: Context): Int {
-        return getCartItems(context).sumOf { parsePrice(it.product.price) * it.quantity }
+    suspend fun getSubtotal(context: Context, query: String = ""): Int {
+        return getCartItems(context, query).sumOf { parsePrice(it.product.price) * it.quantity }
     }
 
     private fun helper(context: Context): MoozikDatabaseHelper {

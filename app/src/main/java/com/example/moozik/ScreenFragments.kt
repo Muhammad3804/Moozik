@@ -12,6 +12,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.drawerlayout.widget.DrawerLayout
@@ -22,6 +23,8 @@ import com.example.moozik.data.CartStore
 import com.example.moozik.adapters.CartAdapter
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.material.navigation.NavigationView
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 private const val NAV_ACTIVE = "#FFC3C3"
 private const val NAV_INACTIVE = "#FF5252"
@@ -132,7 +135,9 @@ class StoreFragment : BaseScreenFragment(R.layout.activity_main) {
             onProfile = { navigateTo(ProfileFragment()) }
         )
 
-        CartStore.syncCatalog(requireContext())
+        viewLifecycleOwner.lifecycleScope.launch(Dispatchers.Main) {
+            CartStore.syncCatalog(requireContext())
+        }
 
         view.findViewById<EditText>(R.id.searchStoreBar)?.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) = Unit
@@ -281,25 +286,29 @@ class CartFragment : BaseScreenFragment(R.layout.activity_cart) {
 
     private fun renderCart(root: View, query: String = currentQuery) {
         currentQuery = query
-        val items = CartStore.getCartItems(requireContext(), query)
+        viewLifecycleOwner.lifecycleScope.launch(Dispatchers.Main) {
+            val items = CartStore.getCartItems(requireContext(), query)
 
-        val recycler = root.findViewById<RecyclerView>(R.id.recyclerCartItems)
-        recycler.layoutManager = LinearLayoutManager(requireContext())
-        recycler.adapter = CartAdapter(items) { cartItem ->
-            CartStore.removeOneFromCart(requireContext(), cartItem.product.id)
-            renderCart(root, currentQuery)
-        }
+            val recycler = root.findViewById<RecyclerView>(R.id.recyclerCartItems)
+            recycler.layoutManager = LinearLayoutManager(requireContext())
+            recycler.adapter = CartAdapter(items) { cartItem ->
+                viewLifecycleOwner.lifecycleScope.launch(Dispatchers.Main) {
+                    CartStore.removeOneFromCart(requireContext(), cartItem.product.id)
+                    renderCart(root, currentQuery)
+                }
+            }
 
-        val subtotal = items.sumOf { parsePrice(it.product.price) * it.quantity }
-        val shipping = if (items.isEmpty()) 0 else 500
-        val total = subtotal + shipping
+            val subtotal = CartStore.getSubtotal(requireContext(), query)
+            val shipping = if (items.isEmpty()) 0 else 500
+            val total = subtotal + shipping
 
-        root.findViewById<TextView>(R.id.textSubtotalValue).text = formatPkr(subtotal)
-        root.findViewById<TextView>(R.id.textShippingValue).text = formatPkr(shipping)
-        root.findViewById<TextView>(R.id.textTotalValue).text = formatPkr(total)
-        root.findViewById<TextView>(R.id.textEmptyCart).apply {
-            text = if (query.isNotBlank() && items.isEmpty()) "No matching items" else "Your cart is empty"
-            visibility = if (items.isEmpty()) View.VISIBLE else View.GONE
+            root.findViewById<TextView>(R.id.textSubtotalValue).text = formatPkr(subtotal)
+            root.findViewById<TextView>(R.id.textShippingValue).text = formatPkr(shipping)
+            root.findViewById<TextView>(R.id.textTotalValue).text = formatPkr(total)
+            root.findViewById<TextView>(R.id.textEmptyCart).apply {
+                text = if (query.isNotBlank() && items.isEmpty()) "No matching items" else "Your cart is empty"
+                visibility = if (items.isEmpty()) View.VISIBLE else View.GONE
+            }
         }
     }
 

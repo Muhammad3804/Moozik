@@ -4,8 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.example.moozik.data.CartStore
-import com.example.moozik.models.Product
 
 class MainActivity : AppCompatActivity() {
 
@@ -40,19 +38,6 @@ class MainActivity : AppCompatActivity() {
             .commit()
     }
 
-    fun addToCart(product: Product) {
-        CartStore.addToCart(this, product)
-    }
-
-    fun removeFromCart(productId: String) {
-        CartStore.removeOneFromCart(this, productId)
-    }
-
-    fun getCartItems() = CartStore.getCartItems(this)
-
-    fun getCartSubtotal(): Int {
-        return CartStore.getSubtotal(this)
-    }
 
     private fun showStartDestination(destination: String?) {
         when (destination) {
