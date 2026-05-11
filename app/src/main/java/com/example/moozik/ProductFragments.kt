@@ -9,6 +9,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.moozik.data.CartStore
 import com.example.moozik.adapters.ProductAdapter
 import com.example.moozik.util.loadImageFromAssets
 import com.example.moozik.data.ProductRepository
@@ -71,7 +72,7 @@ class ProductFragments {
             }
 
             view.findViewById<Button>(R.id.btnAddCart).setOnClickListener {
-                (activity as? MainActivity)?.addToCart(product)
+                CartStore.addToCart(requireContext(), product)
                 android.widget.Toast.makeText(requireContext(), "Added to cart: ${product.title}", android.widget.Toast.LENGTH_SHORT).show()
             }
 

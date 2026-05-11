@@ -4,13 +4,12 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.example.moozik.models.CartItem
+import com.example.moozik.data.CartStore
 import com.example.moozik.models.Product
 
 class MainActivity : AppCompatActivity() {
 
     private var userName: String = DEFAULT_USER_NAME
-    private val cartItems = mutableListOf<CartItem>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,31 +41,17 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun addToCart(product: Product) {
-        val existing = cartItems.firstOrNull { it.product.id == product.id }
-        if (existing == null) {
-            cartItems.add(CartItem(product = product, quantity = 1))
-        } else {
-            existing.quantity += 1
-        }
+        CartStore.addToCart(this, product)
     }
 
     fun removeFromCart(productId: String) {
-        val existing = cartItems.firstOrNull { it.product.id == productId } ?: return
-        if (existing.quantity > 1) {
-            existing.quantity -= 1
-        } else {
-            cartItems.remove(existing)
-        }
+        CartStore.removeOneFromCart(this, productId)
     }
 
-    fun getCartItems(): List<CartItem> = cartItems.map { it.copy() }
+    fun getCartItems() = CartStore.getCartItems(this)
 
     fun getCartSubtotal(): Int {
-        return cartItems.sumOf { parsePrice(it.product.price) * it.quantity }
-    }
-
-    private fun parsePrice(value: String): Int {
-        return value.filter { it.isDigit() }.toIntOrNull() ?: 0
+        return CartStore.getSubtotal(this)
     }
 
     private fun showStartDestination(destination: String?) {

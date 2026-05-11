@@ -69,6 +69,7 @@
                     </RelativeLayout>
 
                     <EditText
+                        android:id="@+id/searchStoreBar"
                         android:layout_width="306dp"
                         android:layout_height="25dp"
                         android:layout_gravity="center_horizontal"

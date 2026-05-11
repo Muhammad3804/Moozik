@@ -3,7 +3,10 @@ package com.example.moozik
 import android.content.Intent
 import android.graphics.Rect
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
+import android.widget.EditText
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.LinearLayout
@@ -15,6 +18,7 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.core.view.GravityCompat
 import androidx.core.graphics.toColorInt
+import com.example.moozik.data.CartStore
 import com.example.moozik.adapters.CartAdapter
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.material.navigation.NavigationView
@@ -82,6 +86,8 @@ class StoreFragment : BaseScreenFragment(R.layout.activity_main) {
         "Other" to R.id.sectionOthers,
     )
 
+    private var currentSearchQuery: String = ""
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -126,13 +132,20 @@ class StoreFragment : BaseScreenFragment(R.layout.activity_main) {
             onProfile = { navigateTo(ProfileFragment()) }
         )
 
-        setupProductSection(view, R.id.recyclerGuitars, "Guitar")
-        setupProductSection(view, R.id.recyclerDrums, "Drums")
-        setupProductSection(view, R.id.recyclerPianos, "Piano")
-        setupProductSection(view, R.id.recyclerBass, "Bass")
-        setupProductSection(view, R.id.recyclerViolins, "Violin")
-        setupProductSection(view, R.id.recyclerOthers, "Other")
-        showAllSections(view)
+        CartStore.syncCatalog(requireContext())
+
+        view.findViewById<EditText>(R.id.searchStoreBar)?.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) = Unit
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) = Unit
+
+            override fun afterTextChanged(s: Editable?) {
+                currentSearchQuery = s?.toString().orEmpty().trim()
+                renderStoreSections(view)
+            }
+        })
+
+        renderStoreSections(view)
     }
 
     private fun showAllSections(root: View) {
@@ -145,6 +158,24 @@ class StoreFragment : BaseScreenFragment(R.layout.activity_main) {
         }
     }
 
+    private fun renderStoreSections(root: View) {
+        sectionIds.forEach { (category, sectionId) ->
+            val recyclerId = when (category) {
+                "Guitar" -> R.id.recyclerGuitars
+                "Drums" -> R.id.recyclerDrums
+                "Piano" -> R.id.recyclerPianos
+                "Bass" -> R.id.recyclerBass
+                "Violin" -> R.id.recyclerViolins
+                else -> R.id.recyclerOthers
+            }
+            setupProductSection(root, recyclerId, category, currentSearchQuery)
+            val filtered = com.example.moozik.data.ProductRepository.allProducts().filter {
+                it.category == category && matchesSearch(it, currentSearchQuery)
+            }
+            root.findViewById<View>(sectionId)?.visibility = if (currentSearchQuery.isBlank() || filtered.isNotEmpty()) View.VISIBLE else View.GONE
+        }
+    }
+
     private fun logoutToLogin() {
         val intent = Intent(requireContext(), LoginActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
@@ -153,9 +184,11 @@ class StoreFragment : BaseScreenFragment(R.layout.activity_main) {
         requireActivity().finish()
     }
 
-    private fun setupProductSection(root: View, recyclerId: Int, category: String) {
+    private fun setupProductSection(root: View, recyclerId: Int, category: String, query: String = "") {
         val recycler = root.findViewById<RecyclerView>(recyclerId)
-        val products = com.example.moozik.data.ProductRepository.allProducts().filter { it.category == category }
+        val products = com.example.moozik.data.ProductRepository.allProducts().filter {
+            it.category == category && matchesSearch(it, query)
+        }
         recycler.layoutManager = GridLayoutManager(requireContext(), 2)
         recycler.adapter = com.example.moozik.adapters.ProductAdapter(products) { product ->
             navigateTo(ProductFragments.ProductDetailFragment.newInstance(product), addToBackStack = true)
@@ -172,6 +205,13 @@ class StoreFragment : BaseScreenFragment(R.layout.activity_main) {
                 }
             })
         }
+    }
+
+    private fun matchesSearch(product: com.example.moozik.models.Product, query: String): Boolean {
+        if (query.isBlank()) return true
+        val normalized = query.lowercase()
+        return product.title.lowercase().contains(normalized) ||
+            product.category.lowercase().contains(normalized)
     }
 
     companion object {
@@ -214,10 +254,13 @@ class LessonsFragment : BaseScreenFragment(R.layout.activity_lessons) {
 }
 
 class CartFragment : BaseScreenFragment(R.layout.activity_cart) {
+    private var currentQuery: String = ""
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        renderCart(view)
+
+        renderCart(view, currentQuery)
 
         bindBottomNav(
             root = view,
@@ -236,29 +279,36 @@ class CartFragment : BaseScreenFragment(R.layout.activity_cart) {
         )
     }
 
-    private fun renderCart(root: View) {
-        val host = activity as? MainActivity ?: return
-        val items = host.getCartItems().toMutableList()
+    private fun renderCart(root: View, query: String = currentQuery) {
+        currentQuery = query
+        val items = CartStore.getCartItems(requireContext(), query)
 
         val recycler = root.findViewById<RecyclerView>(R.id.recyclerCartItems)
         recycler.layoutManager = LinearLayoutManager(requireContext())
         recycler.adapter = CartAdapter(items) { cartItem ->
-            host.removeFromCart(cartItem.product.id)
-            renderCart(root)
+            CartStore.removeOneFromCart(requireContext(), cartItem.product.id)
+            renderCart(root, currentQuery)
         }
 
-        val subtotal = host.getCartSubtotal()
+        val subtotal = items.sumOf { parsePrice(it.product.price) * it.quantity }
         val shipping = if (items.isEmpty()) 0 else 500
         val total = subtotal + shipping
 
         root.findViewById<TextView>(R.id.textSubtotalValue).text = formatPkr(subtotal)
         root.findViewById<TextView>(R.id.textShippingValue).text = formatPkr(shipping)
         root.findViewById<TextView>(R.id.textTotalValue).text = formatPkr(total)
-        root.findViewById<TextView>(R.id.textEmptyCart).visibility = if (items.isEmpty()) View.VISIBLE else View.GONE
+        root.findViewById<TextView>(R.id.textEmptyCart).apply {
+            text = if (query.isNotBlank() && items.isEmpty()) "No matching items" else "Your cart is empty"
+            visibility = if (items.isEmpty()) View.VISIBLE else View.GONE
+        }
     }
 
     private fun formatPkr(value: Int): String {
         return "PKR ${"%,d".format(value)}"
+    }
+
+    private fun parsePrice(value: String): Int {
+        return value.filter { it.isDigit() }.toIntOrNull() ?: 0
     }
 }
 
