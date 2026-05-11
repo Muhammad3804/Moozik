@@ -7,7 +7,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.moozik.R
-import com.example.moozik.util.loadImageFromAssets
+import com.example.moozik.util.loadProductImage
 import com.example.moozik.models.CartItem
 
 class CartAdapter(
@@ -22,10 +22,10 @@ class CartAdapter(
 
     override fun onBindViewHolder(holder: VH, position: Int) {
         val item = items[position]
-        holder.name.text = item.product.title
+        holder.name.text = item.product.name
         holder.price.text = item.product.price
         holder.qty.text = "Qty: ${item.quantity}"
-        holder.image.loadImageFromAssets(item.product.title, R.drawable.ic_image)
+        holder.image.loadProductImage(item.product, R.drawable.ic_image)
         holder.remove.setOnClickListener { onRemove(item) }
     }
 

@@ -20,11 +20,15 @@ import androidx.fragment.app.Fragment
 import androidx.core.view.GravityCompat
 import androidx.core.graphics.toColorInt
 import com.example.moozik.data.CartStore
+import com.example.moozik.data.ApiProductDto
+import com.example.moozik.data.ProductRepository
+import com.example.moozik.data.RetrofitClient
 import com.example.moozik.adapters.CartAdapter
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.material.navigation.NavigationView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 private const val NAV_ACTIVE = "#FFC3C3"
 private const val NAV_INACTIVE = "#FF5252"
@@ -135,8 +139,18 @@ class StoreFragment : BaseScreenFragment(R.layout.activity_main) {
             onProfile = { navigateTo(ProfileFragment()) }
         )
 
-        viewLifecycleOwner.lifecycleScope.launch(Dispatchers.Main) {
-            CartStore.syncCatalog(requireContext())
+        viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
+            try {
+                val products = RetrofitClient.apiService.getProducts().mapNotNull(ApiProductDto::toProductOrNull)
+                ProductRepository.setProducts(products)
+                withContext(Dispatchers.Main) {
+                    renderStoreSections(view)
+                }
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(requireContext(), "Failed to load products", Toast.LENGTH_SHORT).show()
+                }
+            }
         }
 
         view.findViewById<EditText>(R.id.searchStoreBar)?.addTextChangedListener(object : TextWatcher {
@@ -174,8 +188,8 @@ class StoreFragment : BaseScreenFragment(R.layout.activity_main) {
                 else -> R.id.recyclerOthers
             }
             setupProductSection(root, recyclerId, category, currentSearchQuery)
-            val filtered = com.example.moozik.data.ProductRepository.allProducts().filter {
-                it.category == category && matchesSearch(it, currentSearchQuery)
+            val filtered = ProductRepository.productsForCategory(category).filter {
+                matchesSearch(it, currentSearchQuery)
             }
             root.findViewById<View>(sectionId)?.visibility = if (currentSearchQuery.isBlank() || filtered.isNotEmpty()) View.VISIBLE else View.GONE
         }
@@ -191,8 +205,8 @@ class StoreFragment : BaseScreenFragment(R.layout.activity_main) {
 
     private fun setupProductSection(root: View, recyclerId: Int, category: String, query: String = "") {
         val recycler = root.findViewById<RecyclerView>(recyclerId)
-        val products = com.example.moozik.data.ProductRepository.allProducts().filter {
-            it.category == category && matchesSearch(it, query)
+        val products = ProductRepository.productsForCategory(category).filter {
+            matchesSearch(it, query)
         }
         recycler.layoutManager = GridLayoutManager(requireContext(), 2)
         recycler.adapter = com.example.moozik.adapters.ProductAdapter(products) { product ->
@@ -215,7 +229,7 @@ class StoreFragment : BaseScreenFragment(R.layout.activity_main) {
     private fun matchesSearch(product: com.example.moozik.models.Product, query: String): Boolean {
         if (query.isBlank()) return true
         val normalized = query.lowercase()
-        return product.title.lowercase().contains(normalized) ||
+        return product.name.lowercase().contains(normalized) ||
             product.category.lowercase().contains(normalized)
     }
 

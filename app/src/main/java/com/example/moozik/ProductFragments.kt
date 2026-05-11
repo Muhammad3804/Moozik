@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.moozik.data.CartStore
 import com.example.moozik.adapters.ProductAdapter
-import com.example.moozik.util.loadImageFromAssets
+import com.example.moozik.util.loadProductImage
 import com.example.moozik.data.ProductRepository
 import com.example.moozik.models.Product
 import kotlinx.coroutines.Dispatchers
@@ -40,7 +40,7 @@ class ProductFragments {
 
             val product = readProductFromArgs() ?: return
 
-            view.findViewById<TextView>(R.id.textProductTitle).text = product.title
+            view.findViewById<TextView>(R.id.textProductTitle).text = product.name
             view.findViewById<TextView>(R.id.textProductRating).text = "Rating: ${product.rating}"
             view.findViewById<TextView>(R.id.textProductPrice).text = product.price
             view.findViewById<TextView>(R.id.textProductDescription).text = product.description
@@ -52,8 +52,7 @@ class ProductFragments {
             descView.text = product.description + "\n\n" + extraDesc
 
             val img = view.findViewById<ImageView>(R.id.imageProductLarge)
-            // load large image from assets (fallback to bundled drawable)
-            img.loadImageFromAssets(product.title, R.drawable.ic_image)
+            img.loadProductImage(product, R.drawable.ic_image)
 
             val similarRecycler = view.findViewById<RecyclerView>(R.id.recyclerSimilarProducts)
             val related = ProductRepository.relatedProducts(product)
@@ -71,13 +70,13 @@ class ProductFragments {
 
             view.findViewById<Button>(R.id.btnBuyNow).setOnClickListener {
                 // Since there's no backend, show simple feedback using navigation or a Toast
-                android.widget.Toast.makeText(requireContext(), "Buy Now: ${product.title}", android.widget.Toast.LENGTH_SHORT).show()
+                android.widget.Toast.makeText(requireContext(), "Buy Now: ${product.name}", android.widget.Toast.LENGTH_SHORT).show()
             }
 
             view.findViewById<Button>(R.id.btnAddCart).setOnClickListener {
                 viewLifecycleOwner.lifecycleScope.launch(Dispatchers.Main) {
                     CartStore.addToCart(requireContext(), product)
-                    android.widget.Toast.makeText(requireContext(), "Added to cart: ${product.title}", android.widget.Toast.LENGTH_SHORT).show()
+                    android.widget.Toast.makeText(requireContext(), "Added to cart: ${product.name}", android.widget.Toast.LENGTH_SHORT).show()
                 }
             }
 

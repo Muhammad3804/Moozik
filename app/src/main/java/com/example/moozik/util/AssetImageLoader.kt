@@ -1,43 +1,28 @@
 package com.example.moozik.util
 
-import android.content.Context
-import android.graphics.BitmapFactory
 import android.widget.ImageView
 import com.example.moozik.R
+import com.example.moozik.models.Product
+import com.bumptech.glide.Glide
 
 /**
- * Small helper to load product images from the assets folder using product title as the filename.
- * Tries a few common filename variants and falls back to a drawable resource if none found.
+ * Loads product images from the assets folder using the API-provided imageUrl.
+ * Falls back to the given drawable if the asset cannot be loaded.
  */
-fun ImageView.loadImageFromAssets(title: String, fallbackRes: Int = R.drawable.ic_image) {
-    val ctx: Context = this.context
-    val candidates = listOf(
-        "$title.jpg",
-        "$title.png",
-        title.replace(" ", "_") + ".jpg",
-        title.replace(" ", "_") + ".png",
-        title.lowercase().replace(" ", "_") + ".jpg",
-        title.lowercase().replace(" ", "_") + ".png"
-    )
-
-    for (name in candidates) {
-        try {
-            ctx.assets.open(name).use { stream ->
-                val bmp = BitmapFactory.decodeStream(stream)
-                // set bitmap on main thread (ImageView methods are main-thread bound; callers are already on main thread)
-                this.setImageBitmap(bmp)
-                return
-            }
-        } catch (_: Exception) {
-            // try next candidate
-        }
-    }
-
-    // last resort: set fallback drawable
-    try {
+fun ImageView.loadProductImage(product: Product, fallbackRes: Int = R.drawable.ic_image) {
+    if (product.imageUrl.isBlank()) {
         this.setImageResource(fallbackRes)
-    } catch (_: Exception) {
-        // ignore
+        return
     }
+    val source = product.imageUrl.trim().ifBlank { "${product.name}.jpg" }
+    val model = when {
+        source.startsWith("http://", ignoreCase = true) || source.startsWith("https://", ignoreCase = true) -> source
+        source.startsWith("file:", ignoreCase = true) -> source
+        else -> "file:///android_asset/$source"
+    }
+    Glide.with(this)
+        .load(model)
+        .placeholder(fallbackRes)
+        .error(fallbackRes)
+        .into(this)
 }
-

@@ -8,7 +8,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import com.example.moozik.models.CartItem
 import com.example.moozik.models.Product
-import com.example.moozik.data.ProductRepository
 
 private const val DB_NAME = "moozik_store.db"
 private const val DB_VERSION = 1
@@ -72,21 +71,11 @@ class MoozikDatabaseHelper(context: Context) : SQLiteOpenHelper(
 
 object CartStore {
 
-    suspend fun syncCatalog(context: Context) = withContext(Dispatchers.IO) {
-        val db = helper(context).writableDatabase
-        try {
-            ensureCatalogSeeded(db)
-        } finally {
-            db.close()
-        }
-    }
-
     suspend fun addToCart(context: Context, product: Product, quantity: Int = 1) = withContext(Dispatchers.IO) {
         if (quantity <= 0) return@withContext
         val db = helper(context).writableDatabase
         db.beginTransaction()
         try {
-            ensureCatalogSeeded(db)
             upsertProduct(db, product)
 
             val currentQuantity = getCartQuantity(db, product.id)
@@ -111,7 +100,6 @@ object CartStore {
         val db = helper(context).writableDatabase
         db.beginTransaction()
         try {
-            ensureCatalogSeeded(db)
             val currentQuantity = getCartQuantity(db, productId)
             when {
                 currentQuantity == null -> Unit
@@ -129,7 +117,6 @@ object CartStore {
         val db = helper(context).writableDatabase
         db.beginTransaction()
         try {
-            ensureCatalogSeeded(db)
             if (quantity <= 0) {
                 db.delete(TABLE_CART_ITEMS, "$COL_PRODUCT_ID = ?", arrayOf(productId))
             } else {
@@ -145,7 +132,6 @@ object CartStore {
     suspend fun getCartItems(context: Context, query: String = ""): List<CartItem> = withContext(Dispatchers.IO) {
         val db = helper(context).writableDatabase
         try {
-            ensureCatalogSeeded(db)
             val normalized = query.trim()
             val sql = buildString {
                 append(
@@ -182,13 +168,13 @@ object CartStore {
 
                 while (cursor.moveToNext()) {
                     val product = Product(
-                        id = cursor.getString(idIndex),
-                        title = cursor.getString(titleIndex),
-                        category = cursor.getString(categoryIndex),
-                        price = cursor.getString(priceIndex),
-                        rating = cursor.getDouble(ratingIndex),
-                        description = cursor.getString(descriptionIndex),
-                        imageRes = null
+                        id = cursor.getString(idIndex) ?: "",
+                        name = cursor.getString(titleIndex) ?: "",
+                        price = cursor.getString(priceIndex) ?: "",
+                        category = cursor.getString(categoryIndex) ?: "",
+                        rating = cursor.getString(ratingIndex),
+                        description = cursor.getString(descriptionIndex) ?: "",
+                        imageUrl = cursor.getString(cursor.getColumnIndexOrThrow(COL_IMAGE_ASSET)) ?: ""
                     )
                     items.add(
                         CartItem(
@@ -212,26 +198,15 @@ object CartStore {
         return MoozikDatabaseHelper(context.applicationContext)
     }
 
-    private fun ensureCatalogSeeded(db: SQLiteDatabase) {
-        val countCursor = db.rawQuery("SELECT COUNT(*) FROM $TABLE_PRODUCTS", null)
-        val hasRows = countCursor.use { cursor ->
-            cursor.moveToFirst()
-            cursor.getLong(0) > 0L
-        }
-        if (hasRows) return
-
-        ProductRepository.allProducts().forEach { upsertProduct(db, it) }
-    }
-
     private fun upsertProduct(db: SQLiteDatabase, product: Product) {
         val values = ContentValues().apply {
             put(COL_PRODUCT_ID, product.id)
-            put(COL_TITLE, product.title)
+            put(COL_TITLE, product.name)
             put(COL_CATEGORY, product.category)
             put(COL_PRICE, product.price)
             put(COL_RATING, product.rating)
             put(COL_DESCRIPTION, product.description)
-            put(COL_IMAGE_ASSET, product.title)
+            put(COL_IMAGE_ASSET, product.imageUrl)
         }
         db.insertWithOnConflict(TABLE_PRODUCTS, null, values, SQLiteDatabase.CONFLICT_IGNORE)
     }

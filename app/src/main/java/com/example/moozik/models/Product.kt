@@ -5,31 +5,34 @@ import android.os.Parcelable
 
 data class Product(
     val id: String,
-    val title: String,
-    val category: String,
+    val name: String,
     val price: String,
-    val rating: Double,
+    val category: String,
     val description: String,
-    val imageRes: Int? = null
+    val imageUrl: String,
+    val rating: String = "0.0"
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
-        parcel.readString() ?: "",
-        parcel.readString() ?: "",
-        parcel.readString() ?: "",
-        parcel.readString() ?: "",
-        parcel.readDouble(),
-        parcel.readString() ?: "",
-        parcel.readInt().let { if (it == 0) null else it }
+        id = parcel.readString() ?: "",
+        name = parcel.readString() ?: "",
+        price = parcel.readString() ?: "",
+        category = parcel.readString() ?: "",
+        description = parcel.readString() ?: "",
+        imageUrl = parcel.readString() ?: "",
+        rating = parcel.readString() ?: "0.0"
     )
+
+    val title: String
+        get() = name
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(id)
-        parcel.writeString(title)
-        parcel.writeString(category)
+        parcel.writeString(name)
         parcel.writeString(price)
-        parcel.writeDouble(rating)
+        parcel.writeString(category)
         parcel.writeString(description)
-        parcel.writeInt(imageRes ?: 0)
+        parcel.writeString(imageUrl)
+        parcel.writeString(rating)
     }
 
     override fun describeContents(): Int = 0

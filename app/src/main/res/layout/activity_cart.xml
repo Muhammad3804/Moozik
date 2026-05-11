@@ -34,11 +34,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
+                    android:letterSpacing="0.2"
                     android:text="MY CART"
                     android:textColor="#FF5252"
                     android:textSize="24sp"
-                    android:textStyle="bold"
-                    android:letterSpacing="0.2" />
+                    android:textStyle="bold" />
 
 
             </LinearLayout>

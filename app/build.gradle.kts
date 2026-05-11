@@ -70,8 +70,10 @@ dependencies {
     implementation(libs.kotlinx.coroutines.android)
     // implementation(libs.kotlinx.coroutines.play.services)
 
-    // Image Loading
-    implementation(libs.glide)
+    // Networking + Image Loading
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation("com.github.bumptech.glide:glide:4.16.0")
 
     debugImplementation(libs.androidx.ui.tooling)
 
