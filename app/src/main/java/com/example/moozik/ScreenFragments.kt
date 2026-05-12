@@ -21,6 +21,7 @@ import androidx.core.view.GravityCompat
 import androidx.core.graphics.toColorInt
 import com.example.moozik.data.CartStore
 import com.example.moozik.data.ApiProductDto
+import com.example.moozik.data.FirestoreCartRepository
 import com.example.moozik.data.ProductRepository
 import com.example.moozik.data.RetrofitClient
 import com.example.moozik.adapters.CartAdapter
@@ -30,6 +31,7 @@ import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.firebase.firestore.ListenerRegistration
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -296,10 +298,22 @@ class LessonsFragment : BaseScreenFragment(R.layout.activity_lessons) {
 
 class CartFragment : BaseScreenFragment(R.layout.activity_cart) {
     private var currentQuery: String = ""
+    private var cartListenerRegistration: ListenerRegistration? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val userId = FirebaseAuth.getInstance().currentUser?.uid
+        if (!userId.isNullOrBlank()) {
+            cartListenerRegistration = FirestoreCartRepository().listenToCart(userId) { remoteItems ->
+                viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
+                    CartStore.replaceCartItemsFromFirestore(requireContext(), remoteItems)
+                    withContext(Dispatchers.Main) {
+                        renderCart(view, currentQuery)
+                    }
+                }
+            }
+        }
 
         renderCart(view, currentQuery)
 
@@ -328,9 +342,15 @@ class CartFragment : BaseScreenFragment(R.layout.activity_cart) {
             val recycler = root.findViewById<RecyclerView>(R.id.recyclerCartItems)
             recycler.layoutManager = LinearLayoutManager(requireContext())
             recycler.adapter = CartAdapter(items) { cartItem ->
-                viewLifecycleOwner.lifecycleScope.launch(Dispatchers.Main) {
+                viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
                     CartStore.removeOneFromCart(requireContext(), cartItem.product.id)
-                    renderCart(root, currentQuery)
+                    val userId = FirebaseAuth.getInstance().currentUser?.uid
+                    if (!userId.isNullOrBlank()) {
+                        FirestoreCartRepository().removeByProductId(userId, cartItem.product.id)
+                    }
+                    withContext(Dispatchers.Main) {
+                        renderCart(root, currentQuery)
+                    }
                 }
             }
 
@@ -354,6 +374,12 @@ class CartFragment : BaseScreenFragment(R.layout.activity_cart) {
 
     private fun parsePrice(value: String): Int {
         return value.filter { it.isDigit() }.toIntOrNull() ?: 0
+    }
+
+    override fun onDestroyView() {
+        cartListenerRegistration?.remove()
+        cartListenerRegistration = null
+        super.onDestroyView()
     }
 }
 

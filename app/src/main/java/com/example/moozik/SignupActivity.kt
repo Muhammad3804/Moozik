@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.example.moozik.util.collectEditTexts
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
@@ -59,6 +60,9 @@ class SignupActivity : AppCompatActivity() {
             lifecycleScope.launch(Dispatchers.IO) {
                 try {
                     auth.createUserWithEmailAndPassword(enteredEmail, enteredPassword).await()
+                    saveUserProfileToFirestore(
+                        displayName = enteredUserName.ifBlank { enteredEmail.substringBefore("@").ifBlank { "Guest User" } }
+                    )
                     val userName = enteredUserName.ifBlank { enteredEmail.substringBefore("@").ifBlank { "Guest User" } }
                     withContext(Dispatchers.Main) {
                         startActivity(
@@ -73,6 +77,27 @@ class SignupActivity : AppCompatActivity() {
                         android.widget.Toast.makeText(this@SignupActivity, e.message ?: "Signup failed", android.widget.Toast.LENGTH_SHORT).show()
                     }
                 }
+            }
+        }
+    }
+
+    private suspend fun saveUserProfileToFirestore(displayName: String) {
+        val firebaseUser = auth.currentUser ?: return
+        try {
+            FirebaseFirestore.getInstance()
+                .collection("users")
+                .document(firebaseUser.uid)
+                .set(
+                    hashMapOf<String, Any?>(
+                        "name" to displayName,
+                        "email" to firebaseUser.email,
+                        "userId" to firebaseUser.uid
+                    )
+                )
+                .await()
+        } catch (e: Exception) {
+            withContext(Dispatchers.Main) {
+                android.widget.Toast.makeText(this@SignupActivity, e.message ?: "Failed to save user profile", android.widget.Toast.LENGTH_SHORT).show()
             }
         }
     }

@@ -4,10 +4,12 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import com.example.moozik.models.CartItem
 import com.example.moozik.models.Product
+import com.example.moozik.data.FirestoreCartItem
 
 private const val DB_NAME = "moozik_store.db"
 private const val DB_VERSION = 1
@@ -127,6 +129,17 @@ object CartStore {
             db.endTransaction()
             db.close()
         }
+
+        val userId = FirebaseAuth.getInstance().currentUser?.uid ?: return@withContext
+        try {
+            if (quantity <= 0) {
+                FirestoreCartRepository().removeByProductId(userId, productId)
+            } else {
+                FirestoreCartRepository().updateQuantityForProduct(userId, productId, quantity)
+            }
+        } catch (_: Exception) {
+            // Keep SQLite working even if Firestore sync fails.
+        }
     }
 
     suspend fun getCartItems(context: Context, query: String = ""): List<CartItem> = withContext(Dispatchers.IO) {
@@ -192,6 +205,36 @@ object CartStore {
 
     suspend fun getSubtotal(context: Context, query: String = ""): Int {
         return getCartItems(context, query).sumOf { parsePrice(it.product.price) * it.quantity }
+    }
+
+    suspend fun replaceCartItemsFromFirestore(context: Context, items: List<FirestoreCartItem>) = withContext(Dispatchers.IO) {
+        val db = helper(context).writableDatabase
+        db.beginTransaction()
+        try {
+            db.delete(TABLE_CART_ITEMS, null, null)
+            items.forEach { remoteItem ->
+                val product = Product(
+                    id = remoteItem.productId,
+                    name = remoteItem.productName,
+                    price = remoteItem.price,
+                    category = remoteItem.productName,
+                    description = remoteItem.productName,
+                    imageUrl = remoteItem.imageUrl.ifBlank { "${remoteItem.productName}.jpg" },
+                    rating = "0.0"
+                )
+                upsertProduct(db, product)
+
+                val values = ContentValues().apply {
+                    put(COL_PRODUCT_ID, remoteItem.productId)
+                    put(COL_QUANTITY, remoteItem.quantity)
+                }
+                db.insertWithOnConflict(TABLE_CART_ITEMS, null, values, SQLiteDatabase.CONFLICT_REPLACE)
+            }
+            db.setTransactionSuccessful()
+        } finally {
+            db.endTransaction()
+            db.close()
+        }
     }
 
     private fun helper(context: Context): MoozikDatabaseHelper {
