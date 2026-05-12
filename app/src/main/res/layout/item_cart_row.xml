@@ -26,7 +26,7 @@
         android:layout_below="@id/txtCartName"
         android:layout_toEndOf="@id/imgCartProduct"
         android:layout_marginStart="12dp"
-        android:textColor="#FF4444" />
+        android:textColor="#EA4243" />
 
     <TextView
         android:id="@+id/txtCartQty"
@@ -45,7 +45,7 @@
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
         android:text="Remove"
-        android:textColor="#FF4444"
+        android:textColor="#EA4243"
         android:textSize="12sp" />
 
     <View

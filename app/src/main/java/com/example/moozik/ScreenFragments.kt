@@ -35,8 +35,8 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.tasks.await
 
-private const val NAV_ACTIVE = "#FFC3C3"
-private const val NAV_INACTIVE = "#FF5252"
+private const val NAV_ACTIVE = "#EA4243"
+private const val NAV_INACTIVE = "#EA4243"
 
 private fun resolveUserName(fallback: String = "Guest User"): String {
     val user = FirebaseAuth.getInstance().currentUser

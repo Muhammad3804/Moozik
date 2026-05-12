@@ -33,7 +33,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:text="LESSONS"
-                    android:textColor="#FF5252"
+                    android:textColor="#EA4243"
                     android:textSize="24sp"
                     android:textStyle="bold"
                     android:letterSpacing="0.2" />
@@ -86,7 +86,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.0"
-                    app:tint="#FF5252" />
+                    app:tint="#EA4243" />
 
                 <androidx.constraintlayout.widget.Barrier
                     android:id="@+id/barrier"
@@ -112,7 +112,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:text="Guitar Basics — Lesson 4"
-                    android:textColor="#FF5252"
+                    android:textColor="#EA4243"
                     android:textSize="13sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@id/title"
@@ -124,7 +124,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:progress="65"
-                    android:progressTint="#FF5252"
+                    android:progressTint="#EA4243"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@id/pct"
                     app:layout_constraintStart_toStartOf="parent"
@@ -167,10 +167,25 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:stretchColumns="1,2">
-                <TableRow android:background="#FF4444" android:padding="8dp">
-                    <TextView android:text="Day" android:textColor="#FFFFFF" android:textStyle="bold"/>
-                    <TextView android:text="Topic" android:textColor="#FFFFFF" android:textStyle="bold"/>
-                    <TextView android:text="Duration" android:textColor="#FFFFFF" android:textStyle="bold"/>
+
+                <TableRow
+                    android:background="#FF4444"
+                    android:padding="8dp">
+
+                    <TextView
+                        android:text="Day"
+                        android:textColor="#FFFFFF"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:text="Topic"
+                        android:textColor="#FFFFFF"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:text="Duration"
+                        android:textColor="#FFFFFF"
+                        android:textStyle="bold" />
                 </TableRow>
                 <TableRow android:background="#F9F9F9" android:padding="8dp">
                     <TextView android:text="Mon" android:textColor="#1A1A1A"/> <TextView android:text="Guitar Basics" android:textColor="#1A1A1A"/> <TextView android:text="45 min" android:textColor="#1A1A1A"/>
@@ -185,9 +200,27 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:orientation="horizontal">
-                <RadioButton android:text="All" android:textColor="#1A1A1A" android:checked="true" android:buttonTint="#FF4444"/>
-                <RadioButton android:text="Guitar" android:textColor="#1A1A1A" android:buttonTint="#FF4444"/>
-                <RadioButton android:text="Piano" android:textColor="#1A1A1A" android:buttonTint="#FF4444"/>
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:buttonTint="#EA4243"
+                    android:text="All"
+                    android:textColor="#1A1A1A" />
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="#EA4243"
+                    android:text="Guitar"
+                    android:textColor="#1A1A1A" />
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="#EA4243"
+                    android:text="Piano"
+                    android:textColor="#1A1A1A" />
             </RadioGroup>
 
         </LinearLayout>
@@ -215,7 +248,7 @@
                 android:layout_width="28dp"
                 android:layout_height="28dp"
                 android:src="@drawable/ic_shop"
-                app:tint="#FF5252" />
+                app:tint="#EA4243" />
         </LinearLayout>
 
         <LinearLayout
@@ -230,7 +263,7 @@
                 android:layout_width="28dp"
                 android:layout_height="28dp"
                 android:src="@drawable/ic_lessons"
-                app:tint="#FFC3C3" />
+                app:tint="#EA4243" />
         </LinearLayout>
 
         <LinearLayout
@@ -245,7 +278,7 @@
                 android:layout_width="28dp"
                 android:layout_height="28dp"
                 android:src="@drawable/ic_cart"
-                app:tint="#FF5252" />
+                app:tint="#EA4243" />
         </LinearLayout>
 
         <LinearLayout
@@ -260,7 +293,7 @@
                 android:layout_width="28dp"
                 android:layout_height="28dp"
                 android:src="@drawable/ic_profile"
-                app:tint="#FF5252" />
+                app:tint="#EA4243" />
         </LinearLayout>
     </LinearLayout>
 

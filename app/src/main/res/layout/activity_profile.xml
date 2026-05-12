@@ -32,7 +32,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:text="PROFILE"
-                    android:textColor="#FF5252"
+                    android:textColor="#EA4243"
                     android:textSize="24sp"
                     android:textStyle="bold"
                     android:letterSpacing="0.2" />
@@ -106,7 +106,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Guitar Enthusiast"
-                    android:textColor="#FF5252"
+                    android:textColor="#EA4243"
                     android:textSize="13sp"
                     app:layout_constraintStart_toStartOf="@id/txtNameProfile"
                     app:layout_constraintTop_toBottomOf="@id/txtNameProfile" />
@@ -198,8 +198,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp">
-                <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="#1A1A1A" android:buttonTint="#FF4444" android:checked="true" android:text="Dark Mode" />
-                <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="#1A1A1A" android:buttonTint="#FF4444" android:text="Light Mode" />
+                <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="#1A1A1A" android:buttonTint="#EA4243" android:checked="true" android:text="Dark Mode" />
+                <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="#1A1A1A" android:buttonTint="#EA4243" android:text="Light Mode" />
             </RadioGroup>
 
         </LinearLayout>
@@ -227,7 +227,7 @@
                 android:layout_width="28dp"
                 android:layout_height="28dp"
                 android:src="@drawable/ic_shop"
-                app:tint="#FF5252" />
+                app:tint="#EA4243" />
         </LinearLayout>
 
         <LinearLayout
@@ -242,7 +242,7 @@
                 android:layout_width="28dp"
                 android:layout_height="28dp"
                 android:src="@drawable/ic_lessons"
-                app:tint="#FF5252" />
+                app:tint="#EA4243" />
         </LinearLayout>
 
         <LinearLayout
@@ -257,7 +257,7 @@
                 android:layout_width="28dp"
                 android:layout_height="28dp"
                 android:src="@drawable/ic_cart"
-                app:tint="#FF5252" />
+                app:tint="#EA4243" />
         </LinearLayout>
 
         <LinearLayout
@@ -272,7 +272,7 @@
                 android:layout_width="28dp"
                 android:layout_height="28dp"
                 android:src="@drawable/ic_profile"
-                app:tint="#FFC3C3" />
+                app:tint="#EA4243" />
         </LinearLayout>
     </LinearLayout>
 

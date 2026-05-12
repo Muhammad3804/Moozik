@@ -34,7 +34,7 @@
                     android:letterSpacing="0.1"
                     android:singleLine="true"
                     android:text="CONNECT WITH TEACHER"
-                    android:textColor="#FF5252"
+                    android:textColor="#EA4243"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
@@ -100,7 +100,7 @@
                         android:paddingHorizontal="18dp"
                         android:paddingVertical="8dp"
                         android:text="Guitar"
-                        android:textColor="#FF5252"
+                        android:textColor="#EA4243"
                         android:textStyle="bold" />
 
                     <TextView
@@ -111,7 +111,7 @@
                         android:paddingHorizontal="18dp"
                         android:paddingVertical="8dp"
                         android:text="Piano"
-                        android:textColor="#FF5252"
+                        android:textColor="#EA4243"
                         android:textStyle="bold" />
 
                     <TextView
@@ -122,7 +122,7 @@
                         android:paddingHorizontal="18dp"
                         android:paddingVertical="8dp"
                         android:text="Drums"
-                        android:textColor="#FF5252"
+                        android:textColor="#EA4243"
                         android:textStyle="bold" />
 
                     <TextView
@@ -133,7 +133,7 @@
                         android:paddingHorizontal="18dp"
                         android:paddingVertical="8dp"
                         android:text="Bass"
-                        android:textColor="#FF5252"
+                        android:textColor="#EA4243"
                         android:textStyle="bold" />
 
                     <TextView
@@ -143,7 +143,7 @@
                         android:paddingHorizontal="18dp"
                         android:paddingVertical="8dp"
                         android:text="Violin"
-                        android:textColor="#FF5252"
+                        android:textColor="#EA4243"
                         android:textStyle="bold" />
 
                 </LinearLayout>
@@ -192,7 +192,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Lead Guitar Instructor"
-                        android:textColor="#FF5252"
+                        android:textColor="#EA4243"
                         android:textSize="13sp" />
 
                     <TextView
@@ -224,7 +224,7 @@
                             android:paddingHorizontal="8dp"
                             android:paddingVertical="4dp"
                             android:text="9 yrs exp"
-                            android:textColor="#FF5252"
+                            android:textColor="#EA4243"
                             android:textSize="11sp" />
 
                         <TextView
@@ -234,7 +234,7 @@
                             android:paddingHorizontal="8dp"
                             android:paddingVertical="4dp"
                             android:text="Acoustic + Electric"
-                            android:textColor="#FF5252"
+                            android:textColor="#EA4243"
                             android:textSize="11sp" />
                     </LinearLayout>
                 </LinearLayout>
@@ -283,7 +283,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Piano Performance Coach"
-                        android:textColor="#FF5252"
+                        android:textColor="#EA4243"
                         android:textSize="13sp" />
 
                     <TextView
@@ -315,7 +315,7 @@
                             android:paddingHorizontal="8dp"
                             android:paddingVertical="4dp"
                             android:text="7 yrs exp"
-                            android:textColor="#FF5252"
+                            android:textColor="#EA4243"
                             android:textSize="11sp" />
 
                         <TextView
@@ -325,7 +325,7 @@
                             android:paddingHorizontal="8dp"
                             android:paddingVertical="4dp"
                             android:text="Classical + Jazz"
-                            android:textColor="#FF5252"
+                            android:textColor="#EA4243"
                             android:textSize="11sp" />
                     </LinearLayout>
                 </LinearLayout>
@@ -374,7 +374,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Drums and Rhythm Trainer"
-                        android:textColor="#FF5252"
+                        android:textColor="#EA4243"
                         android:textSize="13sp" />
 
                     <TextView
@@ -406,7 +406,7 @@
                             android:paddingHorizontal="8dp"
                             android:paddingVertical="4dp"
                             android:text="8 yrs exp"
-                            android:textColor="#FF5252"
+                            android:textColor="#EA4243"
                             android:textSize="11sp" />
 
                         <TextView
@@ -416,7 +416,7 @@
                             android:paddingHorizontal="8dp"
                             android:paddingVertical="4dp"
                             android:text="Rock + Fusion"
-                            android:textColor="#FF5252"
+                            android:textColor="#EA4243"
                             android:textSize="11sp" />
                     </LinearLayout>
                 </LinearLayout>
@@ -456,7 +456,7 @@
                 android:layout_width="28dp"
                 android:layout_height="28dp"
                 android:src="@drawable/ic_shop"
-                app:tint="#FF5252" />
+                app:tint="#EA4243" />
         </LinearLayout>
 
         <LinearLayout
@@ -471,7 +471,7 @@
                 android:layout_width="28dp"
                 android:layout_height="28dp"
                 android:src="@drawable/ic_lessons"
-                app:tint="#FFC3C3" />
+                app:tint="#EA4243" />
         </LinearLayout>
 
         <LinearLayout
@@ -486,7 +486,7 @@
                 android:layout_width="28dp"
                 android:layout_height="28dp"
                 android:src="@drawable/ic_cart"
-                app:tint="#FF5252" />
+                app:tint="#EA4243" />
         </LinearLayout>
 
         <LinearLayout
@@ -501,7 +501,7 @@
                 android:layout_width="28dp"
                 android:layout_height="28dp"
                 android:src="@drawable/ic_profile"
-                app:tint="#FF5252" />
+                app:tint="#EA4243" />
         </LinearLayout>
     </LinearLayout>
 

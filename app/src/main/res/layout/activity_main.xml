@@ -56,7 +56,7 @@
                             android:layout_centerVertical="true"
                                 android:contentDescription="@null"
                             android:src="@drawable/ic_hamburger"
-                            app:tint="#FF5252" />
+                            app:tint="#EA4243" />
 
                         <ImageView
                             android:id="@+id/ivHeaderLogoMain"
@@ -139,7 +139,7 @@
                     android:layout_height="28dp"
                     android:contentDescription="@null"
                     android:src="@drawable/ic_shop"
-                    app:tint="#FFC3C3" />
+                    app:tint="#EA4243" />
             </LinearLayout>
 
             <LinearLayout
@@ -155,7 +155,7 @@
                     android:layout_height="28dp"
                     android:contentDescription="@null"
                     android:src="@drawable/ic_lessons"
-                    app:tint="#FF5252" />
+                    app:tint="#EA4243" />
             </LinearLayout>
 
             <LinearLayout
@@ -171,7 +171,7 @@
                     android:layout_height="28dp"
                     android:contentDescription="@null"
                     android:src="@drawable/ic_cart"
-                    app:tint="#FF5252" />
+                    app:tint="#EA4243" />
             </LinearLayout>
 
             <LinearLayout
@@ -187,7 +187,7 @@
                     android:layout_height="28dp"
                     android:contentDescription="@null"
                     android:src="@drawable/ic_profile"
-                    app:tint="#FF5252" />
+                    app:tint="#EA4243" />
             </LinearLayout>
         </LinearLayout>
 
@@ -202,7 +202,7 @@
         android:background="#FFFFFF"
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/nav_header"
-            app:itemIconTint="#FF9800"
+            app:itemIconTint="#EA4243"
         app:itemTextColor="#000000"
         app:itemTextAppearance="@style/NavDrawerTextStyle"
             app:subheaderColor="#000000"

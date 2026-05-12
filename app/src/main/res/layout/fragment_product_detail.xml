@@ -42,7 +42,7 @@
                         android:layout_marginEnd="8dp"
                         android:contentDescription="Back"
                         android:src="@drawable/ic_back"
-                        app:tint="#FF5252" />
+                        app:tint="#EA4243" />
 
                     <EditText
                         android:id="@+id/searchBarDetail"
@@ -66,7 +66,7 @@
                         android:layout_marginEnd="8dp"
                         android:contentDescription="Shopping cart"
                         android:src="@drawable/ic_cart"
-                        app:tint="#FF5252" />
+                        app:tint="#EA4243" />
 
                     <ImageView
                         android:id="@+id/btnShare"
@@ -74,7 +74,7 @@
                         android:layout_height="28dp"
                         android:contentDescription="Share"
                         android:src="@drawable/ic_arrow_right"
-                        app:tint="#FF5252" />
+                        app:tint="#EA4243" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -134,7 +134,7 @@
                         android:id="@+id/textProductPrice"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="#FF9800"
+                        android:textColor="#EA4243"
                         android:textSize="24sp"
                         android:textStyle="bold" />
 
@@ -158,7 +158,7 @@
                             android:layout_width="0dp"
                             android:layout_weight="1"
                             android:layout_height="wrap_content"
-                            android:textColor="#FF4444"
+                            android:textColor="#EA4243"
                             android:textSize="12sp" />
 
                         <TextView
@@ -207,7 +207,7 @@
                             android:text="Free shipping"
                             android:textColor="#FFFFFF"
                             android:textSize="11sp"
-                            android:background="#FF9800"
+                            android:background="#EA4243"
                             android:paddingStart="8dp"
                             android:paddingEnd="8dp"
                             android:paddingTop="3dp"
@@ -220,7 +220,7 @@
                             android:text="Popular Pick"
                             android:textColor="#FFFFFF"
                             android:textSize="11sp"
-                            android:background="#FF1744"
+                            android:background="#EA4243"
                             android:paddingStart="8dp"
                             android:paddingEnd="8dp"
                             android:paddingTop="3dp"
@@ -297,7 +297,7 @@
                             android:layout_marginEnd="8dp"
                             android:contentDescription="Store"
                             android:src="@drawable/ic_shop"
-                            app:tint="#FF9800" />
+                            app:tint="#EA4243" />
 
                         <TextView
                             android:layout_width="0dp"
@@ -320,7 +320,7 @@
                             android:layout_marginEnd="8dp"
                             android:contentDescription="Delivery"
                             android:src="@drawable/ic_shop"
-                            app:tint="#FF9800" />
+                            app:tint="#EA4243" />
 
                         <TextView
                             android:layout_width="0dp"
@@ -342,7 +342,7 @@
                             android:layout_marginEnd="8dp"
                             android:contentDescription="Guarantee"
                             android:src="@drawable/ic_shop"
-                            app:tint="#FF9800" />
+                            app:tint="#EA4243" />
 
                         <TextView
                             android:layout_width="0dp"
@@ -415,7 +415,7 @@
             android:layout_height="20dp"
             android:contentDescription="Chat with seller"
             android:src="@drawable/ic_message"
-            app:tint="#FF9800"
+            app:tint="#EA4243"
             android:layout_marginEnd="6dp" />
 
         <Button
@@ -427,7 +427,7 @@
             android:background="@drawable/bg_button_outline"
             android:text="Buy Now"
             android:textAllCaps="false"
-            android:textColor="#FF9800"
+            android:textColor="#EA4243"
             android:textSize="12sp"
             android:gravity="center"
             android:paddingStart="2dp"

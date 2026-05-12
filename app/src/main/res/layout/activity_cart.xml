@@ -36,7 +36,7 @@
                     android:layout_gravity="center_horizontal"
                     android:letterSpacing="0.2"
                     android:text="MY CART"
-                    android:textColor="#FF5252"
+                    android:textColor="#EA4243"
                     android:textSize="24sp"
                     android:textStyle="bold" />
 
@@ -111,7 +111,7 @@
                         android:id="@+id/textTotalValue"
                         android:gravity="end"
                         android:text="PKR 500"
-                        android:textColor="#FF4444"
+                        android:textColor="#EA4243"
                         android:textStyle="bold" />
                 </TableRow>
             </TableLayout>
@@ -154,7 +154,7 @@
                 android:layout_width="28dp"
                 android:layout_height="28dp"
                 android:src="@drawable/ic_shop"
-                app:tint="#FF5252" />
+                app:tint="#EA4243" />
         </LinearLayout>
 
         <LinearLayout
@@ -170,7 +170,7 @@
                 android:layout_width="28dp"
                 android:layout_height="28dp"
                 android:src="@drawable/ic_lessons"
-                app:tint="#FF5252" />
+                app:tint="#EA4243" />
         </LinearLayout>
 
         <LinearLayout
@@ -186,7 +186,7 @@
                 android:layout_width="28dp"
                 android:layout_height="28dp"
                 android:src="@drawable/ic_cart"
-                app:tint="#FFC3C3" />
+                app:tint="#EA4243" />
         </LinearLayout>
 
         <LinearLayout
@@ -202,7 +202,7 @@
                 android:layout_width="28dp"
                 android:layout_height="28dp"
                 android:src="@drawable/ic_profile"
-                app:tint="#FF5252" />
+                app:tint="#EA4243" />
         </LinearLayout>
     </LinearLayout>
 

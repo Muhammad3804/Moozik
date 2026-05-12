@@ -10,6 +10,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.widget.doAfterTextChanged
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.moozik.util.loadAssetImage
 import com.example.moozik.adapters.TeacherAdapter
 import com.example.moozik.data.TeacherRepository
 import com.example.moozik.models.Teacher
@@ -115,6 +116,8 @@ class TeacherDetailFragment : BaseScreenFragment(R.layout.fragment_teacher_detai
 
         val teacher = readTeacherFromArgs() ?: return
 
+        view.findViewById<android.widget.ImageView>(R.id.imageTeacherAvatar)
+            .loadAssetImage(teacher.imageAsset, R.drawable.ic_avatar)
         view.findViewById<TextView>(R.id.textDetailName).text = teacher.name
         view.findViewById<TextView>(R.id.textDetailTitle).text = teacher.title
         view.findViewById<TextView>(R.id.textDetailInstrument).text = "Instrument: ${teacher.instrument}"
