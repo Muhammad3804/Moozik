@@ -11,15 +11,12 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.moozik.data.CartStore
-import com.example.moozik.data.FirestoreCartRepository
 import com.example.moozik.adapters.ProductAdapter
 import com.example.moozik.util.loadProductImage
 import com.example.moozik.data.ProductRepository
 import com.example.moozik.models.Product
-import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class ProductFragments {
 
@@ -77,23 +74,9 @@ class ProductFragments {
             }
 
             view.findViewById<Button>(R.id.btnAddCart).setOnClickListener {
-                viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
+                viewLifecycleOwner.lifecycleScope.launch(Dispatchers.Main) {
                     CartStore.addToCart(requireContext(), product)
-                    val userId = FirebaseAuth.getInstance().currentUser?.uid
-                    if (!userId.isNullOrBlank()) {
-                        FirestoreCartRepository().addToCart(
-                            userId = userId,
-                            productId = product.id,
-                            productName = product.name,
-                            price = product.price,
-                            quantity = 1,
-                            imageUrl = product.imageUrl
-                        )
-                    }
-
-                    withContext(Dispatchers.Main) {
-                        android.widget.Toast.makeText(requireContext(), "Added to cart: ${product.name}", android.widget.Toast.LENGTH_SHORT).show()
-                    }
+                    android.widget.Toast.makeText(requireContext(), "Added to cart: ${product.name}", android.widget.Toast.LENGTH_SHORT).show()
                 }
             }
 

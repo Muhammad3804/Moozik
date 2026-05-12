@@ -21,7 +21,6 @@ import androidx.core.view.GravityCompat
 import androidx.core.graphics.toColorInt
 import com.example.moozik.data.CartStore
 import com.example.moozik.data.ApiProductDto
-import com.example.moozik.data.FirestoreCartRepository
 import com.example.moozik.data.ProductRepository
 import com.example.moozik.data.RetrofitClient
 import com.example.moozik.adapters.CartAdapter
@@ -31,7 +30,6 @@ import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.google.firebase.firestore.ListenerRegistration
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -39,6 +37,17 @@ import kotlinx.coroutines.tasks.await
 
 private const val NAV_ACTIVE = "#FFC3C3"
 private const val NAV_INACTIVE = "#FF5252"
+
+private fun resolveUserName(fallback: String = "Guest User"): String {
+    val user = FirebaseAuth.getInstance().currentUser
+    return user?.displayName?.takeIf { it.isNotBlank() }
+        ?: user?.email?.substringBefore("@").orEmpty().takeIf { it.isNotBlank() }
+        ?: fallback
+}
+
+private fun resolveUserEmail(fallback: String = "guest@moozik.com"): String {
+    return FirebaseAuth.getInstance().currentUser?.email?.takeIf { it.isNotBlank() } ?: fallback
+}
 
 object BottomNavUi {
     fun apply(root: View, selectedIndex: Int) {
@@ -105,7 +114,8 @@ class StoreFragment : BaseScreenFragment(R.layout.activity_main) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val userName = arguments?.getString(ARG_USER_NAME) ?: "Guest User"
+        val userName = resolveUserName(arguments?.getString(ARG_USER_NAME) ?: "Guest User")
+        val userEmail = resolveUserEmail()
 
         val drawerLayout = view.findViewById<DrawerLayout>(R.id.drawerLayout)
         val navigationView = view.findViewById<NavigationView>(R.id.navigationView)
@@ -113,7 +123,7 @@ class StoreFragment : BaseScreenFragment(R.layout.activity_main) {
 
         val headerView = navigationView.getHeaderView(0)
         headerView.findViewById<TextView>(R.id.navHeaderUserName).text = userName
-        headerView.findViewById<TextView>(R.id.navHeaderUserEmail).text = getString(R.string.guest_email)
+        headerView.findViewById<TextView>(R.id.navHeaderUserEmail).text = userEmail
         headerView.findViewById<ImageView>(R.id.navHeaderLogo).loadAssetImage("accountimage.jpg", R.drawable.ic_piano_keys)
 
         navigationView.menu.findItem(R.id.nav_admin_panel)?.isVisible = false
@@ -298,22 +308,10 @@ class LessonsFragment : BaseScreenFragment(R.layout.activity_lessons) {
 
 class CartFragment : BaseScreenFragment(R.layout.activity_cart) {
     private var currentQuery: String = ""
-    private var cartListenerRegistration: ListenerRegistration? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val userId = FirebaseAuth.getInstance().currentUser?.uid
-        if (!userId.isNullOrBlank()) {
-            cartListenerRegistration = FirestoreCartRepository().listenToCart(userId) { remoteItems ->
-                viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
-                    CartStore.replaceCartItemsFromFirestore(requireContext(), remoteItems)
-                    withContext(Dispatchers.Main) {
-                        renderCart(view, currentQuery)
-                    }
-                }
-            }
-        }
 
         renderCart(view, currentQuery)
 
@@ -342,15 +340,9 @@ class CartFragment : BaseScreenFragment(R.layout.activity_cart) {
             val recycler = root.findViewById<RecyclerView>(R.id.recyclerCartItems)
             recycler.layoutManager = LinearLayoutManager(requireContext())
             recycler.adapter = CartAdapter(items) { cartItem ->
-                viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
+                viewLifecycleOwner.lifecycleScope.launch(Dispatchers.Main) {
                     CartStore.removeOneFromCart(requireContext(), cartItem.product.id)
-                    val userId = FirebaseAuth.getInstance().currentUser?.uid
-                    if (!userId.isNullOrBlank()) {
-                        FirestoreCartRepository().removeByProductId(userId, cartItem.product.id)
-                    }
-                    withContext(Dispatchers.Main) {
-                        renderCart(root, currentQuery)
-                    }
+                    renderCart(root, currentQuery)
                 }
             }
 
@@ -375,18 +367,17 @@ class CartFragment : BaseScreenFragment(R.layout.activity_cart) {
     private fun parsePrice(value: String): Int {
         return value.filter { it.isDigit() }.toIntOrNull() ?: 0
     }
-
-    override fun onDestroyView() {
-        cartListenerRegistration?.remove()
-        cartListenerRegistration = null
-        super.onDestroyView()
-    }
 }
 
 class ProfileFragment : BaseScreenFragment(R.layout.activity_profile) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val userName = resolveUserName()
+        val userEmail = resolveUserEmail()
+
+        view.findViewById<TextView>(R.id.txtNameProfile).text = userName
+        view.findViewById<TextView>(R.id.txtEmailProfile).text = userEmail
         view.findViewById<ImageView>(R.id.imgAvatarProfile).loadAssetImage("accountimage.jpg", R.drawable.ic_avatar)
 
         bindBottomNav(

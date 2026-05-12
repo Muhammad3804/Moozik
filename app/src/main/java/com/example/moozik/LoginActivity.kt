@@ -20,7 +20,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
-import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
@@ -81,9 +80,6 @@ class LoginActivity : AppCompatActivity() {
             lifecycleScope.launch(Dispatchers.IO) {
                 try {
                     auth.signInWithEmailAndPassword(enteredEmail, enteredPassword).await()
-                    saveUserProfileToFirestore(
-                        displayName = auth.currentUser?.displayName ?: enteredEmail.substringBefore("@").ifBlank { "Guest User" }
-                    )
                     val userName = auth.currentUser?.displayName
                         ?: enteredEmail.substringBefore("@").ifBlank { "Guest User" }
                     withContext(Dispatchers.Main) {
@@ -145,12 +141,6 @@ class LoginActivity : AppCompatActivity() {
             try {
                 val credential = GoogleAuthProvider.getCredential(idToken, null)
                 auth.signInWithCredential(credential).await()
-                saveUserProfileToFirestore(
-                    displayName = auth.currentUser?.displayName
-                        ?: auth.currentUser?.email?.substringBefore("@")
-                        ?: account.email?.substringBefore("@")
-                        ?: "Guest User"
-                )
                 val userName = auth.currentUser?.displayName
                     ?: auth.currentUser?.email?.substringBefore("@")
                     ?: account.email?.substringBefore("@")
@@ -173,26 +163,5 @@ class LoginActivity : AppCompatActivity() {
 
     companion object {
         private const val RC_GOOGLE_SIGN_IN = 9001
-    }
-
-    private suspend fun saveUserProfileToFirestore(displayName: String) {
-        val firebaseUser = auth.currentUser ?: return
-        try {
-            FirebaseFirestore.getInstance()
-                .collection("users")
-                .document(firebaseUser.uid)
-                .set(
-                    hashMapOf<String, Any?>(
-                        "name" to displayName,
-                        "email" to firebaseUser.email,
-                        "userId" to firebaseUser.uid
-                    )
-                )
-                .await()
-        } catch (e: Exception) {
-            withContext(Dispatchers.Main) {
-                android.widget.Toast.makeText(this@LoginActivity, e.message ?: "Failed to save user profile", android.widget.Toast.LENGTH_SHORT).show()
-            }
-        }
     }
 }

@@ -102,6 +102,7 @@
                     app:layout_constraintTop_toTopOf="@id/imgAvatarProfile" />
 
                 <TextView
+                    android:id="@+id/txtEmailProfile"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Guitar Enthusiast"

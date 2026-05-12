@@ -206,7 +206,7 @@
         app:itemTextColor="#000000"
         app:itemTextAppearance="@style/NavDrawerTextStyle"
             app:subheaderColor="#000000"
-            app:subheaderTextAppearance="@style/NavDrawerTextStyle"
+            app:subheaderTextAppearance="@style/NavDrawerSubheaderTextStyle"
         app:menu="@menu/nav_drawer_menu" />
 
 </androidx.drawerlayout.widget.DrawerLayout>

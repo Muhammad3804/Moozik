@@ -17,28 +17,22 @@
         <menu>
             <item
                 android:id="@+id/nav_guitars"
-                android:icon="@drawable/ic_guitar_placeholder"
-                android:title="Guitars" />
+                android:title="• Guitars" />
             <item
                 android:id="@+id/nav_drums"
-                android:icon="@drawable/ic_drum_placeholder"
-                android:title="Drums" />
+                android:title="• Drums" />
             <item
                 android:id="@+id/nav_pianos"
-                android:icon="@drawable/ic_piano_placeholder"
-                android:title="Pianos" />
+                android:title="• Pianos" />
             <item
                 android:id="@+id/nav_bass"
-                android:icon="@drawable/ic_guitar_placeholder"
-                android:title="Bass" />
+                android:title="• Bass" />
             <item
                 android:id="@+id/nav_violins"
-                android:icon="@drawable/ic_violin_placeholder"
-                android:title="Violins" />
+                android:title="• Violins" />
             <item
                 android:id="@+id/nav_other"
-                android:icon="@drawable/ic_guitar_placeholder"
-                android:title="Other Instruments" />
+                android:title="• Other Instruments" />
         </menu>
     </item>
 
