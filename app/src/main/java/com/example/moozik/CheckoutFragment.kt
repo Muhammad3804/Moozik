@@ -15,11 +15,17 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentManager
+import androidx.lifecycle.lifecycleScope
+import com.example.moozik.data.CartStore
+import com.example.moozik.data.FirestoreCartRepository
 import com.google.android.material.card.MaterialCardView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
 import androidx.core.graphics.toColorInt
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class CheckoutFragment : BaseScreenFragment(R.layout.fragment_checkout) {
 
@@ -176,6 +182,7 @@ class CheckoutFragment : BaseScreenFragment(R.layout.fragment_checkout) {
 
     private fun sendNotificationAndFinishOrder() {
         val context = requireContext()
+        val appContext = context.applicationContext
         val notification = NotificationCompat.Builder(context, NOTIFICATION_CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_notification)
             .setContentTitle("Order Confirmed! 🎸")
@@ -192,9 +199,19 @@ class CheckoutFragment : BaseScreenFragment(R.layout.fragment_checkout) {
         }
         Toast.makeText(context, "Order placed successfully!", Toast.LENGTH_SHORT).show()
 
-        val activity = activity as? MainActivity ?: return
-        activity.supportFragmentManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
-        activity.showFragment(StoreFragment.newInstance(resolveCurrentUserName()))
+        val userId = auth.currentUser?.uid
+        viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
+            CartStore.clearCart(appContext)
+            if (userId != null) {
+                FirestoreCartRepository().clearCart(userId)
+            }
+
+            withContext(Dispatchers.Main) {
+                val activity = activity as? MainActivity ?: return@withContext
+                activity.supportFragmentManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
+                activity.showFragment(StoreFragment.newInstance(resolveCurrentUserName()))
+            }
+        }
     }
 
     private fun resolveCurrentUserName(fallback: String = "Guest User"): String {

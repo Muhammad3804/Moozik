@@ -125,6 +125,20 @@ class FirestoreCartRepository(
             removeFromCart(cartItem.cartItemId)
         }
     }
+
+    suspend fun clearCart(userId: String) = withContext(Dispatchers.IO) {
+        val snapshot = db.collection(CART_COLLECTION)
+            .whereEqualTo("userId", userId)
+            .get()
+            .await()
+
+        snapshot.documents.forEach { document ->
+            db.collection(CART_COLLECTION)
+                .document(document.id)
+                .delete()
+                .await()
+        }
+    }
 }
 
 
