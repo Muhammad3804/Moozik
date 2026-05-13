@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
+import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.Button
 import android.widget.ImageView
@@ -47,6 +48,27 @@ private fun resolveUserName(fallback: String = "Guest User"): String {
 
 private fun resolveUserEmail(fallback: String = "guest@moozik.com"): String {
     return FirebaseAuth.getInstance().currentUser?.email?.takeIf { it.isNotBlank() } ?: fallback
+}
+
+private fun View.findTextViewWithText(target: CharSequence): TextView? {
+    if (this is TextView && text.toString() == target.toString()) return this
+    if (this is ViewGroup) {
+        for (index in 0 until childCount) {
+            val match = getChildAt(index).findTextViewWithText(target)
+            if (match != null) return match
+        }
+    }
+    return null
+}
+
+private fun createCheckoutFragment(): Fragment {
+    return runCatching {
+        Class.forName("com.example.moozik.CheckoutFragment")
+            .getDeclaredConstructor()
+            .newInstance() as Fragment
+    }.getOrElse {
+        Fragment()
+    }
 }
 
 object BottomNavUi {
@@ -164,7 +186,7 @@ class StoreFragment : BaseScreenFragment(R.layout.activity_main) {
                 withContext(Dispatchers.Main) {
                     renderStoreSections(view)
                 }
-            } catch (e: Exception) {
+            } catch (_: Exception) {
                 withContext(Dispatchers.Main) {
                     Toast.makeText(requireContext(), "Failed to load products", Toast.LENGTH_SHORT).show()
                 }
@@ -183,10 +205,6 @@ class StoreFragment : BaseScreenFragment(R.layout.activity_main) {
         })
 
         renderStoreSections(view)
-    }
-
-    private fun showAllSections(root: View) {
-        sectionIds.values.forEach { id -> root.findViewById<View>(id)?.visibility = View.VISIBLE }
     }
 
     private fun showOnlySection(root: View, category: String) {
@@ -312,6 +330,10 @@ class CartFragment : BaseScreenFragment(R.layout.activity_cart) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        view.findTextViewWithText("Proceed to Checkout")?.setOnClickListener {
+            (requireActivity() as? MainActivity)?.showFragment(createCheckoutFragment(), addToBackStack = true)
+        }
+
 
         renderCart(view, currentQuery)
 
@@ -364,9 +386,6 @@ class CartFragment : BaseScreenFragment(R.layout.activity_cart) {
         return "PKR ${"%,d".format(value)}"
     }
 
-    private fun parsePrice(value: String): Int {
-        return value.filter { it.isDigit() }.toIntOrNull() ?: 0
-    }
 }
 
 class ProfileFragment : BaseScreenFragment(R.layout.activity_profile) {
