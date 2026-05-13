@@ -20,6 +20,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.auth.FirebaseUser
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
@@ -41,13 +42,17 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         auth.currentUser?.let { currentUser ->
-            startActivity(
-                Intent(this, MainActivity::class.java)
-                    .putExtra(MainActivity.EXTRA_START_SCREEN, MainActivity.DESTINATION_STORE)
-                    .putExtra(MainActivity.EXTRA_USER_NAME, currentUser.displayName ?: currentUser.email?.substringBefore("@") ?: "Guest User")
-            )
-            finish()
-            return
+            if (currentUser.providerData.any { it.providerId == GoogleAuthProvider.PROVIDER_ID } || currentUser.isEmailVerified) {
+                startActivity(
+                    Intent(this, MainActivity::class.java)
+                        .putExtra(MainActivity.EXTRA_START_SCREEN, MainActivity.DESTINATION_STORE)
+                        .putExtra(MainActivity.EXTRA_USER_NAME, currentUser.displayName ?: currentUser.email?.substringBefore("@") ?: "Guest User")
+                )
+                finish()
+                return
+            } else {
+                auth.signOut()
+            }
         }
 
         setContentView(R.layout.activity_login)
@@ -55,10 +60,11 @@ class LoginActivity : AppCompatActivity() {
         val btnLogin = findViewById<Button>(R.id.btnLogin)
         val btnNoAccount = findViewById<TextView>(R.id.btnNoAccount)
         val logo = findViewById<ImageView>(R.id.ivAuthLogoLogin)
-        val editTexts = findViewById<ViewGroup>(android.R.id.content).collectEditTexts()
+        val contentRoot = findViewById<ViewGroup>(android.R.id.content)
+        val editTexts = contentRoot.collectEditTexts()
         val emailInput = findViewById<EditText>(R.id.editLoginEmail)
         val passwordInput = editTexts.getOrNull(1)
-        val googleButton = findViewById<ViewGroup>(android.R.id.content).findImageViewByContentDescription("Google")
+        val googleButton = contentRoot.findImageViewByContentDescription("Google")
 
         try {
             assets.open("logo.png").use { stream ->
@@ -80,15 +86,36 @@ class LoginActivity : AppCompatActivity() {
             lifecycleScope.launch(Dispatchers.IO) {
                 try {
                     auth.signInWithEmailAndPassword(enteredEmail, enteredPassword).await()
-                    val userName = auth.currentUser?.displayName
-                        ?: enteredEmail.substringBefore("@").ifBlank { "Guest User" }
-                    withContext(Dispatchers.Main) {
-                        startActivity(
-                            Intent(this@LoginActivity, MainActivity::class.java)
-                                .putExtra(MainActivity.EXTRA_START_SCREEN, MainActivity.DESTINATION_STORE)
-                                .putExtra(MainActivity.EXTRA_USER_NAME, userName)
-                        )
-                        finish()
+                    val firebaseUser = auth.currentUser
+                    if (firebaseUser == null) {
+                        withContext(Dispatchers.Main) {
+                            android.widget.Toast.makeText(this@LoginActivity, "Login failed", android.widget.Toast.LENGTH_SHORT).show()
+                        }
+                        return@launch
+                    }
+
+                    if (canEnterApp(firebaseUser)) {
+                        val userName = firebaseUser.displayName
+                            ?: enteredEmail.substringBefore("@").ifBlank { "Guest User" }
+                        withContext(Dispatchers.Main) {
+                            startActivity(
+                                Intent(this@LoginActivity, MainActivity::class.java)
+                                    .putExtra(MainActivity.EXTRA_START_SCREEN, MainActivity.DESTINATION_STORE)
+                                    .putExtra(MainActivity.EXTRA_USER_NAME, userName)
+                            )
+                            finish()
+                        }
+                    } else {
+                        firebaseUser.sendEmailVerification()
+                            .addOnSuccessListener {
+                                android.widget.Toast.makeText(this@LoginActivity, "Please verify your email first. Check your inbox.", android.widget.Toast.LENGTH_SHORT).show()
+                            }
+                            .addOnFailureListener {
+                                android.widget.Toast.makeText(this@LoginActivity, "Please verify your email first. Check your inbox.", android.widget.Toast.LENGTH_SHORT).show()
+                            }
+                            .addOnCompleteListener {
+                                auth.signOut()
+                            }
                     }
                 } catch (e: Exception) {
                     withContext(Dispatchers.Main) {
@@ -159,6 +186,11 @@ class LoginActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    private suspend fun canEnterApp(user: FirebaseUser): Boolean {
+        user.reload().await()
+        return user.providerData.any { it.providerId == GoogleAuthProvider.PROVIDER_ID } || user.isEmailVerified
     }
 
     companion object {

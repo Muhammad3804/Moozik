@@ -65,14 +65,37 @@ class SignupActivity : AppCompatActivity() {
                         .setDisplayName(userName)
                         .build()
                     auth.currentUser?.updateProfile(profileUpdates)?.await()
-                    withContext(Dispatchers.Main) {
-                        startActivity(
-                            Intent(this@SignupActivity, MainActivity::class.java)
-                                .putExtra(MainActivity.EXTRA_START_SCREEN, MainActivity.DESTINATION_STORE)
-                                .putExtra(MainActivity.EXTRA_USER_NAME, userName)
-                        )
-                        finish()
+                    val firebaseUser = auth.currentUser
+                    if (firebaseUser == null) {
+                        auth.signOut()
+                        runOnUiThread {
+                            android.widget.Toast.makeText(this@SignupActivity, "Verification email sent! Please verify before logging in.", android.widget.Toast.LENGTH_SHORT).show()
+                            startActivity(
+                                Intent(this@SignupActivity, LoginActivity::class.java).apply {
+                                    flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                                }
+                            )
+                            finish()
+                        }
+                        return@launch
                     }
+
+                    firebaseUser.sendEmailVerification()
+                        .addOnSuccessListener {
+                            android.widget.Toast.makeText(this@SignupActivity, "Verification email sent! Please verify before logging in.", android.widget.Toast.LENGTH_SHORT).show()
+                        }
+                        .addOnFailureListener { e ->
+                            android.widget.Toast.makeText(this@SignupActivity, e.message ?: "Verification email could not be sent", android.widget.Toast.LENGTH_SHORT).show()
+                        }
+                        .addOnCompleteListener {
+                            auth.signOut()
+                            startActivity(
+                                Intent(this@SignupActivity, LoginActivity::class.java).apply {
+                                    flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                                }
+                            )
+                            finish()
+                        }
                 } catch (e: Exception) {
                     withContext(Dispatchers.Main) {
                         android.widget.Toast.makeText(this@SignupActivity, e.message ?: "Signup failed", android.widget.Toast.LENGTH_SHORT).show()
