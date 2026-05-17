@@ -162,23 +162,9 @@ app/
     └── AssetImageLoader.kt
 ```
 
----
 
-## 📋 Assignment Coverage
-
-| Assignment | Feature | Status |
-|---|---|---|
-| A3 | Single Activity + Fragment Navigation | ✅ |
-| A4 | REST API (Retrofit + MockAPI) | ✅ |
-| A4 | SQLite CRUD + Search/Filter | ✅ |
-| A5 | Firebase Authentication | ✅ |
-| A5 | Firestore Real-time Sync | ✅ |
-| A5 | Checkout + Push Notifications | ✅ |
-
----
 
 ## 👨‍💻 Developer
 
 **Muhammad Bin Musaddiq**  
-FAST NUCES — BS Computer Science  
 [LinkedIn](https://linkedin.com/in/mbinmusaddiq) | [GitHub](https://github.com/Muhammad3804)
